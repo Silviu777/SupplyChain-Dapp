@@ -1,0 +1,2155 @@
+{
+  "contractName": "ChainData",
+  "abi": [],
+  "metadata": "{\"compiler\":{\"version\":\"0.5.16+commit.9c3226ce\"},\"language\":\"Solidity\",\"output\":{\"abi\":[],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"project:/contracts/ChainData.sol\":\"ChainData\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/ChainData.sol\":{\"keccak256\":\"0x1eac6af69a87095632431ad5782c8ec7df659604e7746ede8822970d870a7e52\",\"urls\":[\"bzz-raw://2f3293a8ea8d3c5be5981774095b452a659d83dab98687662018d082c06d825b\",\"dweb:/ipfs/QmW2M786fksTTswbdoBJHYdYZCjUHxAYaoTgXopBQjPyEF\"]}},\"version\":1}",
+  "bytecode": "0x60556023600b82828239805160001a607314601657fe5b30600052607381538281f3fe73000000000000000000000000000000000000000030146080604052600080fdfea265627a7a723158207fea037c068d0990f9e3db67016db5e4a36695d9cf70c810f0ac6089d6198c7f64736f6c63430005100032",
+  "deployedBytecode": "0x73000000000000000000000000000000000000000030146080604052600080fdfea265627a7a723158207fea037c068d0990f9e3db67016db5e4a36695d9cf70c810f0ac6089d6198c7f64736f6c63430005100032",
+  "sourceMap": "167:1529:0:-;;132:2:-1;166:7;155:9;146:7;137:37;255:7;249:14;246:1;241:23;235:4;232:33;222:2;;269:9;222:2;293:9;290:1;283:20;323:4;314:7;306:22;347:7;338;331:24",
+  "deployedSourceMap": "167:1529:0:-;;;;;;;;",
+  "source": "// SPDX-License-Identifier: MIT\npragma solidity >=0.4.21 <0.9.0;\n\n// other smart contracts can use this library for different operations specific to the supply chain\n\nlibrary ChainData {\n    enum State {\n        Manufactured,\n        PurchasedByRetailer,\n        ShippedByManufacturer,\n        ReceivedByRetailer,\n        PurchasedByCustomer,\n        ShippedByRetailer,\n        ReceivedByDistributionHub,\n        ShippedByDistributionHub,\n        ReceivedByCustomer\n    }\n\n    struct ManufactureDetails {\n        address manufacturer;\n        string manufacturerName;\n        string manufacturerDetails;\n        string factoryLongitude;\n        string factoryLatitude;\n        uint256 manufacturedDate;\n    }\n\n    struct ProductDetails {\n        uint256 productCode;\n        string productName;\n        uint256 productPrice;\n        string productCategory;\n    }\n\n    struct Product {\n        uint256 uid;\n        uint256 stockKeepingUnit;\n        address owner;\n        address customer;\n        string transaction;\n        State productState;\n        ManufactureDetails manufacturer;\n        RetailerDetails retailer;\n        ProductDetails details;\n        DistributionHubDetails distributionHub;\n        uint256 operationTimestamp;\n    }\n\n    struct ProductHistory {\n        Product[] history;\n    }\n\n    struct RetailerDetails {\n        address retailer;\n        string retailerLongitude;\n        string retailerLatitude;\n    }\n\n    struct DistributionHubDetails {\n        address distributionHub;\n        string hubLongitude;\n        string hubLatitude;\n    }\n\n    struct Roles {\n        bool Manufacturer;\n        bool Retailer;\n        bool DistributionHub;\n        bool Customer;\n    }\n}\n",
+  "sourcePath": "/Users/mac/Desktop/scm-dapp/contracts/ChainData.sol",
+  "ast": {
+    "absolutePath": "project:/contracts/ChainData.sol",
+    "exportedSymbols": {
+      "ChainData": [
+        84
+      ]
+    },
+    "id": 85,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 1,
+        "literals": [
+          "solidity",
+          ">=",
+          "0.4",
+          ".21",
+          "<",
+          "0.9",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "32:32:0"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "library",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 84,
+        "linearizedBaseContracts": [
+          84
+        ],
+        "name": "ChainData",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "canonicalName": "ChainData.State",
+            "id": 11,
+            "members": [
+              {
+                "id": 2,
+                "name": "Manufactured",
+                "nodeType": "EnumValue",
+                "src": "212:12:0"
+              },
+              {
+                "id": 3,
+                "name": "PurchasedByRetailer",
+                "nodeType": "EnumValue",
+                "src": "234:19:0"
+              },
+              {
+                "id": 4,
+                "name": "ShippedByManufacturer",
+                "nodeType": "EnumValue",
+                "src": "263:21:0"
+              },
+              {
+                "id": 5,
+                "name": "ReceivedByRetailer",
+                "nodeType": "EnumValue",
+                "src": "294:18:0"
+              },
+              {
+                "id": 6,
+                "name": "PurchasedByCustomer",
+                "nodeType": "EnumValue",
+                "src": "322:19:0"
+              },
+              {
+                "id": 7,
+                "name": "ShippedByRetailer",
+                "nodeType": "EnumValue",
+                "src": "351:17:0"
+              },
+              {
+                "id": 8,
+                "name": "ReceivedByDistributionHub",
+                "nodeType": "EnumValue",
+                "src": "378:25:0"
+              },
+              {
+                "id": 9,
+                "name": "ShippedByDistributionHub",
+                "nodeType": "EnumValue",
+                "src": "413:24:0"
+              },
+              {
+                "id": 10,
+                "name": "ReceivedByCustomer",
+                "nodeType": "EnumValue",
+                "src": "447:18:0"
+              }
+            ],
+            "name": "State",
+            "nodeType": "EnumDefinition",
+            "src": "191:280:0"
+          },
+          {
+            "canonicalName": "ChainData.ManufactureDetails",
+            "id": 24,
+            "members": [
+              {
+                "constant": false,
+                "id": 13,
+                "name": "manufacturer",
+                "nodeType": "VariableDeclaration",
+                "scope": 24,
+                "src": "513:20:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                },
+                "typeName": {
+                  "id": 12,
+                  "name": "address",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "513:7:0",
+                  "stateMutability": "nonpayable",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 15,
+                "name": "manufacturerName",
+                "nodeType": "VariableDeclaration",
+                "scope": 24,
+                "src": "543:23:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                },
+                "typeName": {
+                  "id": 14,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "543:6:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 17,
+                "name": "manufacturerDetails",
+                "nodeType": "VariableDeclaration",
+                "scope": 24,
+                "src": "576:26:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                },
+                "typeName": {
+                  "id": 16,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "576:6:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 19,
+                "name": "factoryLongitude",
+                "nodeType": "VariableDeclaration",
+                "scope": 24,
+                "src": "612:23:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                },
+                "typeName": {
+                  "id": 18,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "612:6:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 21,
+                "name": "factoryLatitude",
+                "nodeType": "VariableDeclaration",
+                "scope": 24,
+                "src": "645:22:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                },
+                "typeName": {
+                  "id": 20,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "645:6:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 23,
+                "name": "manufacturedDate",
+                "nodeType": "VariableDeclaration",
+                "scope": 24,
+                "src": "677:24:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 22,
+                  "name": "uint256",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "677:7:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              }
+            ],
+            "name": "ManufactureDetails",
+            "nodeType": "StructDefinition",
+            "scope": 84,
+            "src": "477:231:0",
+            "visibility": "public"
+          },
+          {
+            "canonicalName": "ChainData.ProductDetails",
+            "id": 33,
+            "members": [
+              {
+                "constant": false,
+                "id": 26,
+                "name": "productCode",
+                "nodeType": "VariableDeclaration",
+                "scope": 33,
+                "src": "746:19:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 25,
+                  "name": "uint256",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "746:7:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 28,
+                "name": "productName",
+                "nodeType": "VariableDeclaration",
+                "scope": 33,
+                "src": "775:18:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                },
+                "typeName": {
+                  "id": 27,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "775:6:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 30,
+                "name": "productPrice",
+                "nodeType": "VariableDeclaration",
+                "scope": 33,
+                "src": "803:20:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 29,
+                  "name": "uint256",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "803:7:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 32,
+                "name": "productCategory",
+                "nodeType": "VariableDeclaration",
+                "scope": 33,
+                "src": "833:22:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                },
+                "typeName": {
+                  "id": 31,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "833:6:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              }
+            ],
+            "name": "ProductDetails",
+            "nodeType": "StructDefinition",
+            "scope": 84,
+            "src": "714:148:0",
+            "visibility": "public"
+          },
+          {
+            "canonicalName": "ChainData.Product",
+            "id": 56,
+            "members": [
+              {
+                "constant": false,
+                "id": 35,
+                "name": "uid",
+                "nodeType": "VariableDeclaration",
+                "scope": 56,
+                "src": "893:11:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 34,
+                  "name": "uint256",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "893:7:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 37,
+                "name": "stockKeepingUnit",
+                "nodeType": "VariableDeclaration",
+                "scope": 56,
+                "src": "914:24:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 36,
+                  "name": "uint256",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "914:7:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 39,
+                "name": "owner",
+                "nodeType": "VariableDeclaration",
+                "scope": 56,
+                "src": "948:13:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                },
+                "typeName": {
+                  "id": 38,
+                  "name": "address",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "948:7:0",
+                  "stateMutability": "nonpayable",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 41,
+                "name": "customer",
+                "nodeType": "VariableDeclaration",
+                "scope": 56,
+                "src": "971:16:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                },
+                "typeName": {
+                  "id": 40,
+                  "name": "address",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "971:7:0",
+                  "stateMutability": "nonpayable",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 43,
+                "name": "transaction",
+                "nodeType": "VariableDeclaration",
+                "scope": 56,
+                "src": "997:18:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                },
+                "typeName": {
+                  "id": 42,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "997:6:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 45,
+                "name": "productState",
+                "nodeType": "VariableDeclaration",
+                "scope": 56,
+                "src": "1025:18:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_enum$_State_$11",
+                  "typeString": "enum ChainData.State"
+                },
+                "typeName": {
+                  "contractScope": null,
+                  "id": 44,
+                  "name": "State",
+                  "nodeType": "UserDefinedTypeName",
+                  "referencedDeclaration": 11,
+                  "src": "1025:5:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_enum$_State_$11",
+                    "typeString": "enum ChainData.State"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 47,
+                "name": "manufacturer",
+                "nodeType": "VariableDeclaration",
+                "scope": 56,
+                "src": "1053:31:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_struct$_ManufactureDetails_$24_storage_ptr",
+                  "typeString": "struct ChainData.ManufactureDetails"
+                },
+                "typeName": {
+                  "contractScope": null,
+                  "id": 46,
+                  "name": "ManufactureDetails",
+                  "nodeType": "UserDefinedTypeName",
+                  "referencedDeclaration": 24,
+                  "src": "1053:18:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_ManufactureDetails_$24_storage_ptr",
+                    "typeString": "struct ChainData.ManufactureDetails"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 49,
+                "name": "retailer",
+                "nodeType": "VariableDeclaration",
+                "scope": 56,
+                "src": "1094:24:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_struct$_RetailerDetails_$67_storage_ptr",
+                  "typeString": "struct ChainData.RetailerDetails"
+                },
+                "typeName": {
+                  "contractScope": null,
+                  "id": 48,
+                  "name": "RetailerDetails",
+                  "nodeType": "UserDefinedTypeName",
+                  "referencedDeclaration": 67,
+                  "src": "1094:15:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_RetailerDetails_$67_storage_ptr",
+                    "typeString": "struct ChainData.RetailerDetails"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 51,
+                "name": "details",
+                "nodeType": "VariableDeclaration",
+                "scope": 56,
+                "src": "1128:22:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_struct$_ProductDetails_$33_storage_ptr",
+                  "typeString": "struct ChainData.ProductDetails"
+                },
+                "typeName": {
+                  "contractScope": null,
+                  "id": 50,
+                  "name": "ProductDetails",
+                  "nodeType": "UserDefinedTypeName",
+                  "referencedDeclaration": 33,
+                  "src": "1128:14:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_ProductDetails_$33_storage_ptr",
+                    "typeString": "struct ChainData.ProductDetails"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 53,
+                "name": "distributionHub",
+                "nodeType": "VariableDeclaration",
+                "scope": 56,
+                "src": "1160:38:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_struct$_DistributionHubDetails_$74_storage_ptr",
+                  "typeString": "struct ChainData.DistributionHubDetails"
+                },
+                "typeName": {
+                  "contractScope": null,
+                  "id": 52,
+                  "name": "DistributionHubDetails",
+                  "nodeType": "UserDefinedTypeName",
+                  "referencedDeclaration": 74,
+                  "src": "1160:22:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_struct$_DistributionHubDetails_$74_storage_ptr",
+                    "typeString": "struct ChainData.DistributionHubDetails"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 55,
+                "name": "operationTimestamp",
+                "nodeType": "VariableDeclaration",
+                "scope": 56,
+                "src": "1208:26:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                },
+                "typeName": {
+                  "id": 54,
+                  "name": "uint256",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "1208:7:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_uint256",
+                    "typeString": "uint256"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              }
+            ],
+            "name": "Product",
+            "nodeType": "StructDefinition",
+            "scope": 84,
+            "src": "868:373:0",
+            "visibility": "public"
+          },
+          {
+            "canonicalName": "ChainData.ProductHistory",
+            "id": 60,
+            "members": [
+              {
+                "constant": false,
+                "id": 59,
+                "name": "history",
+                "nodeType": "VariableDeclaration",
+                "scope": 60,
+                "src": "1279:17:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_array$_t_struct$_Product_$56_storage_$dyn_storage_ptr",
+                  "typeString": "struct ChainData.Product[]"
+                },
+                "typeName": {
+                  "baseType": {
+                    "contractScope": null,
+                    "id": 57,
+                    "name": "Product",
+                    "nodeType": "UserDefinedTypeName",
+                    "referencedDeclaration": 56,
+                    "src": "1279:7:0",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_struct$_Product_$56_storage_ptr",
+                      "typeString": "struct ChainData.Product"
+                    }
+                  },
+                  "id": 58,
+                  "length": null,
+                  "nodeType": "ArrayTypeName",
+                  "src": "1279:9:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_array$_t_struct$_Product_$56_storage_$dyn_storage_ptr",
+                    "typeString": "struct ChainData.Product[]"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              }
+            ],
+            "name": "ProductHistory",
+            "nodeType": "StructDefinition",
+            "scope": 84,
+            "src": "1247:56:0",
+            "visibility": "public"
+          },
+          {
+            "canonicalName": "ChainData.RetailerDetails",
+            "id": 67,
+            "members": [
+              {
+                "constant": false,
+                "id": 62,
+                "name": "retailer",
+                "nodeType": "VariableDeclaration",
+                "scope": 67,
+                "src": "1342:16:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                },
+                "typeName": {
+                  "id": 61,
+                  "name": "address",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "1342:7:0",
+                  "stateMutability": "nonpayable",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 64,
+                "name": "retailerLongitude",
+                "nodeType": "VariableDeclaration",
+                "scope": 67,
+                "src": "1368:24:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                },
+                "typeName": {
+                  "id": 63,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "1368:6:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 66,
+                "name": "retailerLatitude",
+                "nodeType": "VariableDeclaration",
+                "scope": 67,
+                "src": "1402:23:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                },
+                "typeName": {
+                  "id": 65,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "1402:6:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              }
+            ],
+            "name": "RetailerDetails",
+            "nodeType": "StructDefinition",
+            "scope": 84,
+            "src": "1309:123:0",
+            "visibility": "public"
+          },
+          {
+            "canonicalName": "ChainData.DistributionHubDetails",
+            "id": 74,
+            "members": [
+              {
+                "constant": false,
+                "id": 69,
+                "name": "distributionHub",
+                "nodeType": "VariableDeclaration",
+                "scope": 74,
+                "src": "1478:23:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                },
+                "typeName": {
+                  "id": 68,
+                  "name": "address",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "1478:7:0",
+                  "stateMutability": "nonpayable",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 71,
+                "name": "hubLongitude",
+                "nodeType": "VariableDeclaration",
+                "scope": 74,
+                "src": "1511:19:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                },
+                "typeName": {
+                  "id": 70,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "1511:6:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 73,
+                "name": "hubLatitude",
+                "nodeType": "VariableDeclaration",
+                "scope": 74,
+                "src": "1540:18:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                },
+                "typeName": {
+                  "id": 72,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "1540:6:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              }
+            ],
+            "name": "DistributionHubDetails",
+            "nodeType": "StructDefinition",
+            "scope": 84,
+            "src": "1438:127:0",
+            "visibility": "public"
+          },
+          {
+            "canonicalName": "ChainData.Roles",
+            "id": 83,
+            "members": [
+              {
+                "constant": false,
+                "id": 76,
+                "name": "Manufacturer",
+                "nodeType": "VariableDeclaration",
+                "scope": 83,
+                "src": "1594:17:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_bool",
+                  "typeString": "bool"
+                },
+                "typeName": {
+                  "id": 75,
+                  "name": "bool",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "1594:4:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 78,
+                "name": "Retailer",
+                "nodeType": "VariableDeclaration",
+                "scope": 83,
+                "src": "1621:13:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_bool",
+                  "typeString": "bool"
+                },
+                "typeName": {
+                  "id": 77,
+                  "name": "bool",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "1621:4:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 80,
+                "name": "DistributionHub",
+                "nodeType": "VariableDeclaration",
+                "scope": 83,
+                "src": "1644:20:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_bool",
+                  "typeString": "bool"
+                },
+                "typeName": {
+                  "id": 79,
+                  "name": "bool",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "1644:4:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              },
+              {
+                "constant": false,
+                "id": 82,
+                "name": "Customer",
+                "nodeType": "VariableDeclaration",
+                "scope": 83,
+                "src": "1674:13:0",
+                "stateVariable": false,
+                "storageLocation": "default",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_bool",
+                  "typeString": "bool"
+                },
+                "typeName": {
+                  "id": 81,
+                  "name": "bool",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "1674:4:0",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  }
+                },
+                "value": null,
+                "visibility": "internal"
+              }
+            ],
+            "name": "Roles",
+            "nodeType": "StructDefinition",
+            "scope": 84,
+            "src": "1571:123:0",
+            "visibility": "public"
+          }
+        ],
+        "scope": 85,
+        "src": "167:1529:0"
+      }
+    ],
+    "src": "32:1665:0"
+  },
+  "legacyAST": {
+    "attributes": {
+      "absolutePath": "project:/contracts/ChainData.sol",
+      "exportedSymbols": {
+        "ChainData": [
+          84
+        ]
+      }
+    },
+    "children": [
+      {
+        "attributes": {
+          "literals": [
+            "solidity",
+            ">=",
+            "0.4",
+            ".21",
+            "<",
+            "0.9",
+            ".0"
+          ]
+        },
+        "id": 1,
+        "name": "PragmaDirective",
+        "src": "32:32:0"
+      },
+      {
+        "attributes": {
+          "baseContracts": [
+            null
+          ],
+          "contractDependencies": [
+            null
+          ],
+          "contractKind": "library",
+          "documentation": null,
+          "fullyImplemented": true,
+          "linearizedBaseContracts": [
+            84
+          ],
+          "name": "ChainData",
+          "scope": 85
+        },
+        "children": [
+          {
+            "attributes": {
+              "canonicalName": "ChainData.State",
+              "name": "State"
+            },
+            "children": [
+              {
+                "attributes": {
+                  "name": "Manufactured"
+                },
+                "id": 2,
+                "name": "EnumValue",
+                "src": "212:12:0"
+              },
+              {
+                "attributes": {
+                  "name": "PurchasedByRetailer"
+                },
+                "id": 3,
+                "name": "EnumValue",
+                "src": "234:19:0"
+              },
+              {
+                "attributes": {
+                  "name": "ShippedByManufacturer"
+                },
+                "id": 4,
+                "name": "EnumValue",
+                "src": "263:21:0"
+              },
+              {
+                "attributes": {
+                  "name": "ReceivedByRetailer"
+                },
+                "id": 5,
+                "name": "EnumValue",
+                "src": "294:18:0"
+              },
+              {
+                "attributes": {
+                  "name": "PurchasedByCustomer"
+                },
+                "id": 6,
+                "name": "EnumValue",
+                "src": "322:19:0"
+              },
+              {
+                "attributes": {
+                  "name": "ShippedByRetailer"
+                },
+                "id": 7,
+                "name": "EnumValue",
+                "src": "351:17:0"
+              },
+              {
+                "attributes": {
+                  "name": "ReceivedByDistributionHub"
+                },
+                "id": 8,
+                "name": "EnumValue",
+                "src": "378:25:0"
+              },
+              {
+                "attributes": {
+                  "name": "ShippedByDistributionHub"
+                },
+                "id": 9,
+                "name": "EnumValue",
+                "src": "413:24:0"
+              },
+              {
+                "attributes": {
+                  "name": "ReceivedByCustomer"
+                },
+                "id": 10,
+                "name": "EnumValue",
+                "src": "447:18:0"
+              }
+            ],
+            "id": 11,
+            "name": "EnumDefinition",
+            "src": "191:280:0"
+          },
+          {
+            "attributes": {
+              "canonicalName": "ChainData.ManufactureDetails",
+              "name": "ManufactureDetails",
+              "scope": 84,
+              "visibility": "public"
+            },
+            "children": [
+              {
+                "attributes": {
+                  "constant": false,
+                  "name": "manufacturer",
+                  "scope": 24,
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "type": "address",
+                  "value": null,
+                  "visibility": "internal"
+                },
+                "children": [
+                  {
+                    "attributes": {
+                      "name": "address",
+                      "stateMutability": "nonpayable",
+                      "type": "address"
+                    },
+                    "id": 12,
+                    "name": "ElementaryTypeName",
+                    "src": "513:7:0"
+                  }
+                ],
+                "id": 13,
+                "name": "VariableDeclaration",
+                "src": "513:20:0"
+              },
+              {
+                "attributes": {
+                  "constant": false,
+                  "name": "manufacturerName",
+                  "scope": 24,
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "type": "string",
+                  "value": null,
+                  "visibility": "internal"
+                },
+                "children": [
+                  {
+                    "attributes": {
+                      "name": "string",
+                      "type": "string"
+                    },
+                    "id": 14,
+                    "name": "ElementaryTypeName",
+                    "src": "543:6:0"
+                  }
+                ],
+                "id": 15,
+                "name": "VariableDeclaration",
+                "src": "543:23:0"
+              },
+              {
+                "attributes": {
+                  "constant": false,
+                  "name": "manufacturerDetails",
+                  "scope": 24,
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "type": "string",
+                  "value": null,
+                  "visibility": "internal"
+                },
+                "children": [
+                  {
+                    "attributes": {
+                      "name": "string",
+                      "type": "string"
+                    },
+                    "id": 16,
+                    "name": "ElementaryTypeName",
+                    "src": "576:6:0"
+                  }
+                ],
+                "id": 17,
+                "name": "VariableDeclaration",
+                "src": "576:26:0"
+              },
+              {
+                "attributes": {
+                  "constant": false,
+                  "name": "factoryLongitude",
+                  "scope": 24,
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "type": "string",
+                  "value": null,
+                  "visibility": "internal"
+                },
+                "children": [
+                  {
+                    "attributes": {
+                      "name": "string",
+                      "type": "string"
+                    },
+                    "id": 18,
+                    "name": "ElementaryTypeName",
+                    "src": "612:6:0"
+                  }
+                ],
+                "id": 19,
+                "name": "VariableDeclaration",
+                "src": "612:23:0"
+              },
+              {
+                "attributes": {
+                  "constant": false,
+                  "name": "factoryLatitude",
+                  "scope": 24,
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "type": "string",
+                  "value": null,
+                  "visibility": "internal"
+                },
+                "children": [
+                  {
+                    "attributes": {
+                      "name": "string",
+                      "type": "string"
+                    },
+                    "id": 20,
+                    "name": "ElementaryTypeName",
+                    "src": "645:6:0"
+                  }
+                ],
+                "id": 21,
+                "name": "VariableDeclaration",
+                "src": "645:22:0"
+              },
+              {
+                "attributes": {
+                  "constant": false,
+                  "name": "manufacturedDate",
+                  "scope": 24,
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "type": "uint256",
+                  "value": null,
+                  "visibility": "internal"
+                },
+                "children": [
+                  {
+                    "attributes": {
+                      "name": "uint256",
+                      "type": "uint256"
+                    },
+                    "id": 22,
+                    "name": "ElementaryTypeName",
+                    "src": "677:7:0"
+                  }
+                ],
+                "id": 23,
+                "name": "VariableDeclaration",
+                "src": "677:24:0"
+              }
+            ],
+            "id": 24,
+            "name": "StructDefinition",
+            "src": "477:231:0"
+          },
+          {
+            "attributes": {
+              "canonicalName": "ChainData.ProductDetails",
+              "name": "ProductDetails",
+              "scope": 84,
+              "visibility": "public"
+            },
+            "children": [
+              {
+                "attributes": {
+                  "constant": false,
+                  "name": "productCode",
+                  "scope": 33,
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "type": "uint256",
+                  "value": null,
+                  "visibility": "internal"
+                },
+                "children": [
+                  {
+                    "attributes": {
+                      "name": "uint256",
+                      "type": "uint256"
+                    },
+                    "id": 25,
+                    "name": "ElementaryTypeName",
+                    "src": "746:7:0"
+                  }
+                ],
+                "id": 26,
+                "name": "VariableDeclaration",
+                "src": "746:19:0"
+              },
+              {
+                "attributes": {
+                  "constant": false,
+                  "name": "productName",
+                  "scope": 33,
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "type": "string",
+                  "value": null,
+                  "visibility": "internal"
+                },
+                "children": [
+                  {
+                    "attributes": {
+                      "name": "string",
+                      "type": "string"
+                    },
+                    "id": 27,
+                    "name": "ElementaryTypeName",
+                    "src": "775:6:0"
+                  }
+                ],
+                "id": 28,
+                "name": "VariableDeclaration",
+                "src": "775:18:0"
+              },
+              {
+                "attributes": {
+                  "constant": false,
+                  "name": "productPrice",
+                  "scope": 33,
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "type": "uint256",
+                  "value": null,
+                  "visibility": "internal"
+                },
+                "children": [
+                  {
+                    "attributes": {
+                      "name": "uint256",
+                      "type": "uint256"
+                    },
+                    "id": 29,
+                    "name": "ElementaryTypeName",
+                    "src": "803:7:0"
+                  }
+                ],
+                "id": 30,
+                "name": "VariableDeclaration",
+                "src": "803:20:0"
+              },
+              {
+                "attributes": {
+                  "constant": false,
+                  "name": "productCategory",
+                  "scope": 33,
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "type": "string",
+                  "value": null,
+                  "visibility": "internal"
+                },
+                "children": [
+                  {
+                    "attributes": {
+                      "name": "string",
+                      "type": "string"
+                    },
+                    "id": 31,
+                    "name": "ElementaryTypeName",
+                    "src": "833:6:0"
+                  }
+                ],
+                "id": 32,
+                "name": "VariableDeclaration",
+                "src": "833:22:0"
+              }
+            ],
+            "id": 33,
+            "name": "StructDefinition",
+            "src": "714:148:0"
+          },
+          {
+            "attributes": {
+              "canonicalName": "ChainData.Product",
+              "name": "Product",
+              "scope": 84,
+              "visibility": "public"
+            },
+            "children": [
+              {
+                "attributes": {
+                  "constant": false,
+                  "name": "uid",
+                  "scope": 56,
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "type": "uint256",
+                  "value": null,
+                  "visibility": "internal"
+                },
+                "children": [
+                  {
+                    "attributes": {
+                      "name": "uint256",
+                      "type": "uint256"
+                    },
+                    "id": 34,
+                    "name": "ElementaryTypeName",
+                    "src": "893:7:0"
+                  }
+                ],
+                "id": 35,
+                "name": "VariableDeclaration",
+                "src": "893:11:0"
+              },
+              {
+                "attributes": {
+                  "constant": false,
+                  "name": "stockKeepingUnit",
+                  "scope": 56,
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "type": "uint256",
+                  "value": null,
+                  "visibility": "internal"
+                },
+                "children": [
+                  {
+                    "attributes": {
+                      "name": "uint256",
+                      "type": "uint256"
+                    },
+                    "id": 36,
+                    "name": "ElementaryTypeName",
+                    "src": "914:7:0"
+                  }
+                ],
+                "id": 37,
+                "name": "VariableDeclaration",
+                "src": "914:24:0"
+              },
+              {
+                "attributes": {
+                  "constant": false,
+                  "name": "owner",
+                  "scope": 56,
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "type": "address",
+                  "value": null,
+                  "visibility": "internal"
+                },
+                "children": [
+                  {
+                    "attributes": {
+                      "name": "address",
+                      "stateMutability": "nonpayable",
+                      "type": "address"
+                    },
+                    "id": 38,
+                    "name": "ElementaryTypeName",
+                    "src": "948:7:0"
+                  }
+                ],
+                "id": 39,
+                "name": "VariableDeclaration",
+                "src": "948:13:0"
+              },
+              {
+                "attributes": {
+                  "constant": false,
+                  "name": "customer",
+                  "scope": 56,
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "type": "address",
+                  "value": null,
+                  "visibility": "internal"
+                },
+                "children": [
+                  {
+                    "attributes": {
+                      "name": "address",
+                      "stateMutability": "nonpayable",
+                      "type": "address"
+                    },
+                    "id": 40,
+                    "name": "ElementaryTypeName",
+                    "src": "971:7:0"
+                  }
+                ],
+                "id": 41,
+                "name": "VariableDeclaration",
+                "src": "971:16:0"
+              },
+              {
+                "attributes": {
+                  "constant": false,
+                  "name": "transaction",
+                  "scope": 56,
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "type": "string",
+                  "value": null,
+                  "visibility": "internal"
+                },
+                "children": [
+                  {
+                    "attributes": {
+                      "name": "string",
+                      "type": "string"
+                    },
+                    "id": 42,
+                    "name": "ElementaryTypeName",
+                    "src": "997:6:0"
+                  }
+                ],
+                "id": 43,
+                "name": "VariableDeclaration",
+                "src": "997:18:0"
+              },
+              {
+                "attributes": {
+                  "constant": false,
+                  "name": "productState",
+                  "scope": 56,
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "type": "enum ChainData.State",
+                  "value": null,
+                  "visibility": "internal"
+                },
+                "children": [
+                  {
+                    "attributes": {
+                      "contractScope": null,
+                      "name": "State",
+                      "referencedDeclaration": 11,
+                      "type": "enum ChainData.State"
+                    },
+                    "id": 44,
+                    "name": "UserDefinedTypeName",
+                    "src": "1025:5:0"
+                  }
+                ],
+                "id": 45,
+                "name": "VariableDeclaration",
+                "src": "1025:18:0"
+              },
+              {
+                "attributes": {
+                  "constant": false,
+                  "name": "manufacturer",
+                  "scope": 56,
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "type": "struct ChainData.ManufactureDetails",
+                  "value": null,
+                  "visibility": "internal"
+                },
+                "children": [
+                  {
+                    "attributes": {
+                      "contractScope": null,
+                      "name": "ManufactureDetails",
+                      "referencedDeclaration": 24,
+                      "type": "struct ChainData.ManufactureDetails"
+                    },
+                    "id": 46,
+                    "name": "UserDefinedTypeName",
+                    "src": "1053:18:0"
+                  }
+                ],
+                "id": 47,
+                "name": "VariableDeclaration",
+                "src": "1053:31:0"
+              },
+              {
+                "attributes": {
+                  "constant": false,
+                  "name": "retailer",
+                  "scope": 56,
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "type": "struct ChainData.RetailerDetails",
+                  "value": null,
+                  "visibility": "internal"
+                },
+                "children": [
+                  {
+                    "attributes": {
+                      "contractScope": null,
+                      "name": "RetailerDetails",
+                      "referencedDeclaration": 67,
+                      "type": "struct ChainData.RetailerDetails"
+                    },
+                    "id": 48,
+                    "name": "UserDefinedTypeName",
+                    "src": "1094:15:0"
+                  }
+                ],
+                "id": 49,
+                "name": "VariableDeclaration",
+                "src": "1094:24:0"
+              },
+              {
+                "attributes": {
+                  "constant": false,
+                  "name": "details",
+                  "scope": 56,
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "type": "struct ChainData.ProductDetails",
+                  "value": null,
+                  "visibility": "internal"
+                },
+                "children": [
+                  {
+                    "attributes": {
+                      "contractScope": null,
+                      "name": "ProductDetails",
+                      "referencedDeclaration": 33,
+                      "type": "struct ChainData.ProductDetails"
+                    },
+                    "id": 50,
+                    "name": "UserDefinedTypeName",
+                    "src": "1128:14:0"
+                  }
+                ],
+                "id": 51,
+                "name": "VariableDeclaration",
+                "src": "1128:22:0"
+              },
+              {
+                "attributes": {
+                  "constant": false,
+                  "name": "distributionHub",
+                  "scope": 56,
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "type": "struct ChainData.DistributionHubDetails",
+                  "value": null,
+                  "visibility": "internal"
+                },
+                "children": [
+                  {
+                    "attributes": {
+                      "contractScope": null,
+                      "name": "DistributionHubDetails",
+                      "referencedDeclaration": 74,
+                      "type": "struct ChainData.DistributionHubDetails"
+                    },
+                    "id": 52,
+                    "name": "UserDefinedTypeName",
+                    "src": "1160:22:0"
+                  }
+                ],
+                "id": 53,
+                "name": "VariableDeclaration",
+                "src": "1160:38:0"
+              },
+              {
+                "attributes": {
+                  "constant": false,
+                  "name": "operationTimestamp",
+                  "scope": 56,
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "type": "uint256",
+                  "value": null,
+                  "visibility": "internal"
+                },
+                "children": [
+                  {
+                    "attributes": {
+                      "name": "uint256",
+                      "type": "uint256"
+                    },
+                    "id": 54,
+                    "name": "ElementaryTypeName",
+                    "src": "1208:7:0"
+                  }
+                ],
+                "id": 55,
+                "name": "VariableDeclaration",
+                "src": "1208:26:0"
+              }
+            ],
+            "id": 56,
+            "name": "StructDefinition",
+            "src": "868:373:0"
+          },
+          {
+            "attributes": {
+              "canonicalName": "ChainData.ProductHistory",
+              "name": "ProductHistory",
+              "scope": 84,
+              "visibility": "public"
+            },
+            "children": [
+              {
+                "attributes": {
+                  "constant": false,
+                  "name": "history",
+                  "scope": 60,
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "type": "struct ChainData.Product[]",
+                  "value": null,
+                  "visibility": "internal"
+                },
+                "children": [
+                  {
+                    "attributes": {
+                      "length": null,
+                      "type": "struct ChainData.Product[]"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "contractScope": null,
+                          "name": "Product",
+                          "referencedDeclaration": 56,
+                          "type": "struct ChainData.Product"
+                        },
+                        "id": 57,
+                        "name": "UserDefinedTypeName",
+                        "src": "1279:7:0"
+                      }
+                    ],
+                    "id": 58,
+                    "name": "ArrayTypeName",
+                    "src": "1279:9:0"
+                  }
+                ],
+                "id": 59,
+                "name": "VariableDeclaration",
+                "src": "1279:17:0"
+              }
+            ],
+            "id": 60,
+            "name": "StructDefinition",
+            "src": "1247:56:0"
+          },
+          {
+            "attributes": {
+              "canonicalName": "ChainData.RetailerDetails",
+              "name": "RetailerDetails",
+              "scope": 84,
+              "visibility": "public"
+            },
+            "children": [
+              {
+                "attributes": {
+                  "constant": false,
+                  "name": "retailer",
+                  "scope": 67,
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "type": "address",
+                  "value": null,
+                  "visibility": "internal"
+                },
+                "children": [
+                  {
+                    "attributes": {
+                      "name": "address",
+                      "stateMutability": "nonpayable",
+                      "type": "address"
+                    },
+                    "id": 61,
+                    "name": "ElementaryTypeName",
+                    "src": "1342:7:0"
+                  }
+                ],
+                "id": 62,
+                "name": "VariableDeclaration",
+                "src": "1342:16:0"
+              },
+              {
+                "attributes": {
+                  "constant": false,
+                  "name": "retailerLongitude",
+                  "scope": 67,
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "type": "string",
+                  "value": null,
+                  "visibility": "internal"
+                },
+                "children": [
+                  {
+                    "attributes": {
+                      "name": "string",
+                      "type": "string"
+                    },
+                    "id": 63,
+                    "name": "ElementaryTypeName",
+                    "src": "1368:6:0"
+                  }
+                ],
+                "id": 64,
+                "name": "VariableDeclaration",
+                "src": "1368:24:0"
+              },
+              {
+                "attributes": {
+                  "constant": false,
+                  "name": "retailerLatitude",
+                  "scope": 67,
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "type": "string",
+                  "value": null,
+                  "visibility": "internal"
+                },
+                "children": [
+                  {
+                    "attributes": {
+                      "name": "string",
+                      "type": "string"
+                    },
+                    "id": 65,
+                    "name": "ElementaryTypeName",
+                    "src": "1402:6:0"
+                  }
+                ],
+                "id": 66,
+                "name": "VariableDeclaration",
+                "src": "1402:23:0"
+              }
+            ],
+            "id": 67,
+            "name": "StructDefinition",
+            "src": "1309:123:0"
+          },
+          {
+            "attributes": {
+              "canonicalName": "ChainData.DistributionHubDetails",
+              "name": "DistributionHubDetails",
+              "scope": 84,
+              "visibility": "public"
+            },
+            "children": [
+              {
+                "attributes": {
+                  "constant": false,
+                  "name": "distributionHub",
+                  "scope": 74,
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "type": "address",
+                  "value": null,
+                  "visibility": "internal"
+                },
+                "children": [
+                  {
+                    "attributes": {
+                      "name": "address",
+                      "stateMutability": "nonpayable",
+                      "type": "address"
+                    },
+                    "id": 68,
+                    "name": "ElementaryTypeName",
+                    "src": "1478:7:0"
+                  }
+                ],
+                "id": 69,
+                "name": "VariableDeclaration",
+                "src": "1478:23:0"
+              },
+              {
+                "attributes": {
+                  "constant": false,
+                  "name": "hubLongitude",
+                  "scope": 74,
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "type": "string",
+                  "value": null,
+                  "visibility": "internal"
+                },
+                "children": [
+                  {
+                    "attributes": {
+                      "name": "string",
+                      "type": "string"
+                    },
+                    "id": 70,
+                    "name": "ElementaryTypeName",
+                    "src": "1511:6:0"
+                  }
+                ],
+                "id": 71,
+                "name": "VariableDeclaration",
+                "src": "1511:19:0"
+              },
+              {
+                "attributes": {
+                  "constant": false,
+                  "name": "hubLatitude",
+                  "scope": 74,
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "type": "string",
+                  "value": null,
+                  "visibility": "internal"
+                },
+                "children": [
+                  {
+                    "attributes": {
+                      "name": "string",
+                      "type": "string"
+                    },
+                    "id": 72,
+                    "name": "ElementaryTypeName",
+                    "src": "1540:6:0"
+                  }
+                ],
+                "id": 73,
+                "name": "VariableDeclaration",
+                "src": "1540:18:0"
+              }
+            ],
+            "id": 74,
+            "name": "StructDefinition",
+            "src": "1438:127:0"
+          },
+          {
+            "attributes": {
+              "canonicalName": "ChainData.Roles",
+              "name": "Roles",
+              "scope": 84,
+              "visibility": "public"
+            },
+            "children": [
+              {
+                "attributes": {
+                  "constant": false,
+                  "name": "Manufacturer",
+                  "scope": 83,
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "type": "bool",
+                  "value": null,
+                  "visibility": "internal"
+                },
+                "children": [
+                  {
+                    "attributes": {
+                      "name": "bool",
+                      "type": "bool"
+                    },
+                    "id": 75,
+                    "name": "ElementaryTypeName",
+                    "src": "1594:4:0"
+                  }
+                ],
+                "id": 76,
+                "name": "VariableDeclaration",
+                "src": "1594:17:0"
+              },
+              {
+                "attributes": {
+                  "constant": false,
+                  "name": "Retailer",
+                  "scope": 83,
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "type": "bool",
+                  "value": null,
+                  "visibility": "internal"
+                },
+                "children": [
+                  {
+                    "attributes": {
+                      "name": "bool",
+                      "type": "bool"
+                    },
+                    "id": 77,
+                    "name": "ElementaryTypeName",
+                    "src": "1621:4:0"
+                  }
+                ],
+                "id": 78,
+                "name": "VariableDeclaration",
+                "src": "1621:13:0"
+              },
+              {
+                "attributes": {
+                  "constant": false,
+                  "name": "DistributionHub",
+                  "scope": 83,
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "type": "bool",
+                  "value": null,
+                  "visibility": "internal"
+                },
+                "children": [
+                  {
+                    "attributes": {
+                      "name": "bool",
+                      "type": "bool"
+                    },
+                    "id": 79,
+                    "name": "ElementaryTypeName",
+                    "src": "1644:4:0"
+                  }
+                ],
+                "id": 80,
+                "name": "VariableDeclaration",
+                "src": "1644:20:0"
+              },
+              {
+                "attributes": {
+                  "constant": false,
+                  "name": "Customer",
+                  "scope": 83,
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "type": "bool",
+                  "value": null,
+                  "visibility": "internal"
+                },
+                "children": [
+                  {
+                    "attributes": {
+                      "name": "bool",
+                      "type": "bool"
+                    },
+                    "id": 81,
+                    "name": "ElementaryTypeName",
+                    "src": "1674:4:0"
+                  }
+                ],
+                "id": 82,
+                "name": "VariableDeclaration",
+                "src": "1674:13:0"
+              }
+            ],
+            "id": 83,
+            "name": "StructDefinition",
+            "src": "1571:123:0"
+          }
+        ],
+        "id": 84,
+        "name": "ContractDefinition",
+        "src": "167:1529:0"
+      }
+    ],
+    "id": 85,
+    "name": "SourceUnit",
+    "src": "32:1665:0"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.5.16+commit.9c3226ce.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.4.16",
+  "updatedAt": "2024-06-24T10:48:58.944Z",
+  "devdoc": {
+    "methods": {}
+  },
+  "userdoc": {
+    "methods": {}
+  }
+}
