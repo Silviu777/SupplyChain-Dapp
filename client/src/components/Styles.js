@@ -36,11 +36,18 @@ export const useStyles = makeStyles({
         textAlign: "center"
     },
 
+    noWrap: {
+        whiteSpace: 'nowrap',
+    },
+
     textField: {
         '& .MuiInputBase-input': {
             color: 'white',
         },
         '& .MuiInputLabel-outlined': {
+            color: 'white',
+        },
+        '& .MuiInputLabel-root.Mui-focused': {
             color: 'white',
         },
         '& .MuiOutlinedInput-root': {
@@ -185,7 +192,7 @@ export const useStyles = makeStyles({
     },
 
     TableCell: {
-        color: "#1a237e !important",
+        color: "#1a237e !important"
     },
 
     FormWrap: {
@@ -290,6 +297,7 @@ export const useStyles = makeStyles({
         textAlign: "left",
         fontWeight: 600,
         color: "#1a237e",
+        fontSize: "14.5px",
     },
 
     dCol2: {

@@ -127,7 +127,7 @@ export default function ShipDistributionHub(props) {
                         />
                         <h1 className={classes.pageHeading}>Products To be Shipped</h1>
                         <h3 className={classes.tableCount}>
-                            Total : {allSoldProducts.length}
+                            Total: {allSoldProducts.length}
                         </h3>
 
                         <div>
@@ -150,6 +150,12 @@ export default function ShipDistributionHub(props) {
                                                     className={classes.TableHead}
                                                     align="center"
                                                 >
+                                                    Product Name
+                                                </TableCell>
+                                                <TableCell
+                                                    className={classes.TableHead}
+                                                    align="center"
+                                                >
                                                     Manufacturer
                                                 </TableCell>
                                                 <TableCell
@@ -157,12 +163,6 @@ export default function ShipDistributionHub(props) {
                                                     align="center"
                                                 >
                                                     Manufacture Date
-                                                </TableCell>
-                                                <TableCell
-                                                    className={classes.TableHead}
-                                                    align="center"
-                                                >
-                                                    Product Name
                                                 </TableCell>
                                                 <TableCell
                                                     className={clsx(
@@ -232,15 +232,15 @@ export default function ShipDistributionHub(props) {
                                                                     className={classes.TableCell}
                                                                     align="center"
                                                                 >
-                                                                    {prod[0][4]}
+                                                                    {prod[1][1]}
                                                                 </TableCell>
-                                                                <TableCell align="center">{d}</TableCell>
                                                                 <TableCell
                                                                     className={classes.TableCell}
                                                                     align="center"
                                                                 >
-                                                                    {prod[1][1]}
+                                                                    {prod[0][4]}
                                                                 </TableCell>
+                                                                <TableCell align="center">{d}</TableCell>
                                                                 <TableCell
                                                                     className={clsx(
                                                                         classes.TableCell,

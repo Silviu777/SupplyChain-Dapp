@@ -156,28 +156,28 @@ export default function Explorer(props) {
                                         <Paper className={classes.ProductPaper}>
                                             <div>
                                                 <div className={classes.ExplorerdRow}>
-                                                    ID : {productData[0][0].toString()}
+                                                    ID: {productData[0][0].toString()}
                                                 </div>
                                                 <div className={classes.ExplorerdRow}>
-                                                    Stock Keeping Unit : {productData[0][1].toString()}
+                                                    Stock Keeping Unit: {productData[0][1].toString()}
                                                 </div>
                                                 <div className={classes.ExplorerdRow}>
-                                                    Owner : {productData[0][2]}
+                                                    Owner: {productData[0][2]}
                                                 </div>
                                                 <div className={classes.ExplorerdRow}>
-                                                    Manufacturer : {productData[0][3]}
+                                                    Manufacturer: {productData[0][3]}
                                                 </div>
                                                 <div className={classes.ExplorerdRow}>
-                                                    Manufacturer Name : {productData[0][4]}
+                                                    Manufacturer Name: {productData[0][4]}
                                                 </div>
                                                 <div className={classes.ExplorerdRow}>
-                                                    Manufacturer Details : {productData[0][5]}
+                                                    Manufacturer Details: {productData[0][5]}
                                                 </div>
                                                 <div className={classes.ExplorerdRow}>
-                                                    Longitude of Manufacture : {productData[0][6]}
+                                                    Manufacture Longitude: {productData[0][6]}
                                                 </div>
                                                 <div className={classes.ExplorerdRow}>
-                                                    Latitude of Manufacture : {productData[0][7]}
+                                                    Manufacture Latitude: {productData[0][7]}
                                                 </div>
                                                 <div className={classes.ExplorerdRow}>
                                                     Manufactured date : {new Date(Number(productData[1][0]) * 1000).toLocaleString('en-US', { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false, timeZoneName: 'short' })}

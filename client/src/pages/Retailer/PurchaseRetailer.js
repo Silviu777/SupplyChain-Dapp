@@ -136,9 +136,9 @@ export default function PurchaseRetailer(props) {
                                             <TableRow>
                                                 <TableCell className={classes.TableHead} align="left">ID</TableCell>
                                                 <TableCell className={classes.TableHead} align="center">Product Code</TableCell>
+                                                <TableCell className={classes.TableHead} align="center">Product Name</TableCell>
                                                 <TableCell className={classes.TableHead} align="center">Manufacturer</TableCell>
                                                 <TableCell className={classes.TableHead} align="center">Manufacture Date</TableCell>
-                                                <TableCell className={classes.TableHead} align="center">Product Name</TableCell>
                                                 <TableCell className={clsx(classes.TableHead, classes.AddressCell)} align="center">Owner</TableCell>
                                                 <TableCell className={clsx(classes.TableHead)} align="center">Details</TableCell>
                                                 <TableCell className={clsx(classes.TableHead)} align="center">Buy</TableCell>
@@ -163,9 +163,9 @@ export default function PurchaseRetailer(props) {
                                                         <TableRow hover role="checkbox" tabIndex={-1} key={Number(prod[0][0])}>
                                                             <TableCell className={classes.TableCell} component="th" align="left" scope="row">{Number(prod[0][0])}</TableCell>
                                                             <TableCell className={classes.TableCell} align="center">{prod[1][2]}</TableCell>
+                                                            <TableCell className={classes.TableCell} align="center">{prod[1][1]}</TableCell>
                                                             <TableCell className={classes.TableCell} align="center">{prod[0][4]}</TableCell>
                                                             <TableCell align="center">{d}</TableCell>
-                                                            <TableCell className={classes.TableCell} align="center">{prod[1][1]}</TableCell>
                                                             <TableCell className={clsx(classes.TableCell, classes.AddressCell)} align="center">{prod[0][2]}</TableCell>
                                                             <TableCell className={clsx(classes.TableCell)} align="center">
                                                                 <Button type="submit" variant="contained" color="primary" onClick={() => handleClick(prod)}>DETAILS</Button>

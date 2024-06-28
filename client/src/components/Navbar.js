@@ -118,7 +118,7 @@ export default function PersistentDrawerLeft({ pageTitle, navItems, children }) 
                         <img
                             alt="."
                             src="/logo-transp.png"
-                            style={{ height: "66px", width: "auto" }}
+                            style={{ height: "70px", width: "auto" }}
                         />
                         &nbsp;Decentralised Supply Chain Platform
                     </Typography>

@@ -16,15 +16,14 @@ import clsx from "clsx";
 import Loader from "../../components/Loader";
 
 export default function ShipRetailer(props) {
-
     const classes = useStyles();
     const { roles } = useRole();
     const supplyChainContract = props.supplyChainContract;
     const [count, setCount] = React.useState(0);
-
     const [allSoldProducts, setAllSoldProducts] = React.useState([]);
     const [alertText, setalertText] = React.useState("");
     const [loading, setLoading] = React.useState(false);
+
     const navItem = [
         ["Buy Product", "/Retailer/allProducts"],
         ["Receive Product", "/Retailer/receive"],
@@ -71,13 +70,10 @@ export default function ShipRetailer(props) {
                     const finalB = convertBigIntFields(b);
                     const finalC = convertBigIntFields(c);
 
-                    console.log("product: ", finalA);
-
                     prodData.push(finalA);
                     prodData.push(finalB);
                     prodData.push(finalC);
                     arr.push(prodData);
-
                 }
             }
             setAllSoldProducts(arr);
@@ -104,7 +100,6 @@ export default function ShipRetailer(props) {
         } catch {
             setalertText("You are not the owner of the product!")
         }
-
     };
 
     const [page, setPage] = React.useState(0);
@@ -166,6 +161,12 @@ export default function ShipRetailer(props) {
                                                     className={classes.TableHead}
                                                     align="center"
                                                 >
+                                                    Product Name
+                                                </TableCell>
+                                                <TableCell
+                                                    className={classes.TableHead}
+                                                    align="center"
+                                                >
                                                     Manufacturer
                                                 </TableCell>
                                                 <TableCell
@@ -173,12 +174,6 @@ export default function ShipRetailer(props) {
                                                     align="center"
                                                 >
                                                     Manufacture Date
-                                                </TableCell>
-                                                <TableCell
-                                                    className={classes.TableHead}
-                                                    align="center"
-                                                >
-                                                    Product Name
                                                 </TableCell>
                                                 <TableCell
                                                     className={clsx(
@@ -248,15 +243,15 @@ export default function ShipRetailer(props) {
                                                                     className={classes.TableCell}
                                                                     align="center"
                                                                 >
-                                                                    {prod[0][4]}
+                                                                    {prod[1][1]}
                                                                 </TableCell>
-                                                                <TableCell align="center">{d}</TableCell>
                                                                 <TableCell
                                                                     className={classes.TableCell}
                                                                     align="center"
                                                                 >
-                                                                    {prod[1][1]}
+                                                                    {prod[0][4]}
                                                                 </TableCell>
+                                                                <TableCell align="center">{d}</TableCell>
                                                                 <TableCell
                                                                     className={clsx(
                                                                         classes.TableCell,

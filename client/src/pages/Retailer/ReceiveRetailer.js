@@ -25,9 +25,6 @@ export default function ReceiveRetailer(props) {
     const [open, setOpen] = useState(false);
     const [loading, setLoading] = useState(false);
     const [alertText, setAlertText] = useState("");
-    const [longitude, setLongitude] = useState("");
-    const [latitude, setLatitude] = useState("");
-
     const navItem = [
         ["Buy Product", "/Retailer/allProducts"],
         ["Receive Product", "/Retailer/receive"],
@@ -35,90 +32,80 @@ export default function ReceiveRetailer(props) {
     ];
 
     useEffect(() => {
+        let isMounted = true;
+
         (async () => {
             setLoading(true);
-            try {
-                const cnt = await supplyChainContract.methods.getProductCount().call();
+            const cnt = await supplyChainContract.methods.getProductCount().call();
+            if (isMounted) {
                 setCount(Number(cnt));
-
-            } catch (error) {
-                console.error("Error fetching product count:", error);
             }
         })();
 
         (async () => {
             const arr = [];
-            try {
-                for (let i = 1; i < count; i++) {
-                    const prodState = await supplyChainContract.methods.getProductState(i).call();
-                    console.log("state:", prodState);
+            for (let i = 1; i <= count; i++) {
+                const prodState = await supplyChainContract.methods.getProductState(i).call();
+                console.log("state:", prodState);
 
-                    if (Number(prodState) === 2) {
+                if (Number(prodState) === 2) {
+                    const prodData = [];
+                    const a = await supplyChainContract.methods.getBasicProductDetails(i, "product", 0).call();
+                    const b = await supplyChainContract.methods.getAdditionalProductDetails(i, "product", 0).call();
+                    const c = await supplyChainContract.methods.getRetailerDistributionDetails(i, "product", 0).call();
 
-                        const prodData = [];
-                        const a = await supplyChainContract.methods.getBasicProductDetails(i, "product", 0).call();
-                        const b = await supplyChainContract.methods.getAdditionalProductDetails(i, "product", 0).call();
-                        const c = await supplyChainContract.methods.getRetailerDistributionDetails(i, "product", 0).call();
-
-                        const convertBigIntFields = (obj) => {
-                            const newObj = { ...obj };
-                            for (const key in newObj) {
-                                if (typeof newObj[key] === 'bigint') {
-                                    newObj[key] = Number(newObj[key]);
-                                }
+                    const convertBigIntFields = (obj) => {
+                        const newObj = { ...obj };
+                        for (const key in newObj) {
+                            if (typeof newObj[key] === 'bigint') {
+                                newObj[key] = Number(newObj[key]);
                             }
-                            return newObj;
-                        };
+                        }
+                        return newObj;
+                    };
 
-                        const finalA = convertBigIntFields(a);
-                        const finalB = convertBigIntFields(b);
-                        const finalC = convertBigIntFields(c);
+                    const finalA = convertBigIntFields(a);
+                    const finalB = convertBigIntFields(b);
+                    const finalC = convertBigIntFields(c);
 
-                        prodData.push(finalA);
-                        prodData.push(finalB);
-                        prodData.push(finalC);
-                        arr.push(prodData);
-                    }
+                    prodData.push(finalA);
+                    prodData.push(finalB);
+                    prodData.push(finalC);
+                    arr.push(prodData);
                 }
-                setAllReceiveProducts(arr);
-
-            } catch (error) {
-                console.error("Error fetching product details:", error);
             }
-            setLoading(false);
+            if (isMounted) {
+                setAllReceiveProducts(arr);
+                setLoading(false);
+            }
         })();
-    }, [count]);
 
-    const handleReceiveButton = async (prod) => {
-        setModalData(prod);
-        setOpen(true);
+        return () => {
+            isMounted = false;
+        };
+    }, [count, supplyChainContract]);
+
+    const handleSetTxhash = async (id, hash) => {
+        await supplyChainContract.methods
+            .setTransactionHash(id, hash)
+            .send({ from: roles.manufacturer, gas: 900000 });
     };
 
-    const handleConfirmReceive = async () => {
+    const handleReceiveButton = async (id, long, lat) => {
         try {
-            const id = modalData[0][0];
+            console.log("Attempting to receive product with ID:", id);
+            console.log("Using retailer address:", roles.retailer);
             await supplyChainContract.methods
-                .receiveByRetailer(parseInt(id), longitude, latitude)
+                .receiveByRetailer(id, long, lat)
                 .send({ from: roles.retailer, gas: 1000000 })
                 .on("transactionHash", function (hash) {
                     handleSetTxhash(id, hash);
                 });
-
             setCount(0);
             setOpen(false);
         } catch (error) {
-            console.error("Error receiving product:", error);
+            console.error("Error during receiving:", error);
             setAlertText("You are not the owner of the product!");
-        }
-    };
-
-    const handleSetTxhash = async (id, hash) => {
-        try {
-            await supplyChainContract.methods
-                .setTransactionHash(id, hash)
-                .send({ from: roles.manufacturer, gas: 900000 });
-        } catch (error) {
-            console.error("Error setting transaction hash:", error);
         }
     };
 
@@ -138,7 +125,6 @@ export default function ReceiveRetailer(props) {
 
     const handleClick = async (prod) => {
         await setModalData(prod);
-        console.log("prod data: ", prod[2][5])
         setOpen(true);
     };
 
@@ -153,12 +139,8 @@ export default function ReceiveRetailer(props) {
                             prod={modalData}
                             open={open}
                             handleClose={handleClose}
-                            handleReceiveButton={handleConfirmReceive}
+                            handleReceiveButton={handleReceiveButton}
                             aText={alertText}
-                            longitude={longitude}
-                            setLongitude={setLongitude}
-                            latitude={latitude}
-                            setLatitude={setLatitude}
                         />
 
                         <h1 className={classes.pageHeading}>Products to be Received</h1>
@@ -173,19 +155,19 @@ export default function ReceiveRetailer(props) {
                                         <TableHead>
                                             <TableRow>
                                                 <TableCell className={classes.TableHead} align="left">
-                                                    Universal ID
+                                                    ID
                                                 </TableCell>
                                                 <TableCell className={classes.TableHead} align="center">
                                                     Product Code
+                                                </TableCell>
+                                                <TableCell className={classes.TableHead} align="center">
+                                                    Product Name
                                                 </TableCell>
                                                 <TableCell className={classes.TableHead} align="center">
                                                     Manufacturer
                                                 </TableCell>
                                                 <TableCell className={classes.TableHead} align="center">
                                                     Manufacture Date
-                                                </TableCell>
-                                                <TableCell className={classes.TableHead} align="center">
-                                                    Product Name
                                                 </TableCell>
                                                 <TableCell
                                                     className={clsx(
@@ -206,7 +188,7 @@ export default function ReceiveRetailer(props) {
                                                     className={clsx(classes.TableHead)}
                                                     align="center"
                                                 >
-                                                    RECEIVE
+                                                    Receive
                                                 </TableCell>
                                             </TableRow>
                                         </TableHead>
@@ -231,77 +213,75 @@ export default function ReceiveRetailer(props) {
                                                         });
 
                                                         return (
-                                                            <>
-                                                                <TableRow
-                                                                    hover
-                                                                    role="checkbox"
-                                                                    tabIndex={-1}
-                                                                    key={prod[0][0]}
+                                                            <TableRow
+                                                                hover
+                                                                role="checkbox"
+                                                                tabIndex={-1}
+                                                                key={prod[0][0]}
+                                                            >
+                                                                <TableCell
+                                                                    className={classes.TableCell}
+                                                                    component="th"
+                                                                    align="left"
+                                                                    scope="row"
                                                                 >
-                                                                    <TableCell
-                                                                        className={classes.TableCell}
-                                                                        component="th"
-                                                                        align="left"
-                                                                        scope="row"
+                                                                    {prod[0][0]}
+                                                                </TableCell>
+                                                                <TableCell
+                                                                    className={classes.TableCell}
+                                                                    align="center"
+                                                                >
+                                                                    {prod[1][2]}
+                                                                </TableCell>
+                                                                <TableCell
+                                                                    className={classes.TableCell}
+                                                                    align="center"
+                                                                >
+                                                                    {prod[1][1]}
+                                                                </TableCell>
+                                                                <TableCell
+                                                                    className={classes.TableCell}
+                                                                    align="center"
+                                                                >
+                                                                    {prod[0][4]}
+                                                                </TableCell>
+                                                                <TableCell align="center">{d}</TableCell>
+                                                                <TableCell
+                                                                    className={clsx(
+                                                                        classes.TableCell,
+                                                                        classes.AddressCell
+                                                                    )}
+                                                                    align="center"
+                                                                >
+                                                                    {prod[0][2]}
+                                                                </TableCell>
+                                                                <TableCell
+                                                                    className={clsx(classes.TableCell)}
+                                                                    align="center"
+                                                                >
+                                                                    <Button
+                                                                        type="button"
+                                                                        variant="contained"
+                                                                        color="primary"
+                                                                        onClick={() => handleClick(prod)}
                                                                     >
-                                                                        {prod[0][0]}
-                                                                    </TableCell>
-                                                                    <TableCell
-                                                                        className={classes.TableCell}
-                                                                        align="center"
+                                                                        Details
+                                                                    </Button>
+                                                                </TableCell>
+                                                                <TableCell
+                                                                    className={clsx(classes.TableCell)}
+                                                                    align="center"
+                                                                >
+                                                                    <Button
+                                                                        type="submit"
+                                                                        variant="contained"
+                                                                        color="primary"
+                                                                        onClick={() => handleClick(prod)}
                                                                     >
-                                                                        {prod[1][2]}
-                                                                    </TableCell>
-                                                                    <TableCell
-                                                                        className={classes.TableCell}
-                                                                        align="center"
-                                                                    >
-                                                                        {prod[0][4]}
-                                                                    </TableCell>
-                                                                    <TableCell align="center">{d}</TableCell>
-                                                                    <TableCell
-                                                                        className={classes.TableCell}
-                                                                        align="center"
-                                                                    >
-                                                                        {prod[1][1]}
-                                                                    </TableCell>
-                                                                    <TableCell
-                                                                        className={clsx(
-                                                                            classes.TableCell,
-                                                                            classes.AddressCell
-                                                                        )}
-                                                                        align="center"
-                                                                    >
-                                                                        {prod[0][2]}
-                                                                    </TableCell>
-                                                                    <TableCell
-                                                                        className={clsx(classes.TableCell)}
-                                                                        align="center"
-                                                                    >
-                                                                        <Button
-                                                                            type="submit"
-                                                                            variant="contained"
-                                                                            color="primary"
-                                                                            onClick={() => handleClick(prod)}
-                                                                        >
-                                                                            DETAILS
-                                                                        </Button>
-                                                                    </TableCell>
-                                                                    <TableCell
-                                                                        className={clsx(classes.TableCell)}
-                                                                        align="center"
-                                                                    >
-                                                                        <Button
-                                                                            type="submit"
-                                                                            variant="contained"
-                                                                            color="primary"
-                                                                            onClick={() => handleReceiveButton(prod)}
-                                                                        >
-                                                                            RECEIVE
-                                                                        </Button>
-                                                                    </TableCell>
-                                                                </TableRow>
-                                                            </>
+                                                                        Receive
+                                                                    </Button>
+                                                                </TableCell>
+                                                            </TableRow>
                                                         );
                                                     })
                                             ) : (

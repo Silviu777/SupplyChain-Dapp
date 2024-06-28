@@ -38,7 +38,6 @@ export default function ReceiveCustomer(props) {
             try {
                 const cnt = await supplyChainContract.methods.getProductCount().call();
                 setCount(Number(cnt));
-
             } catch (error) {
                 console.error("Error fetching product count:", error);
                 setLoading(false);
@@ -47,13 +46,12 @@ export default function ReceiveCustomer(props) {
 
         (async () => {
             const arr = [];
-            for (var i = 1; i < count; i++) {
+            for (let i = 1; i < count; i++) {
                 try {
                     const prodState = await supplyChainContract.methods.getProductState(i).call();
-                    console.log("prod state: ", prodState)
+                    console.log("prod state: ", prodState);
 
                     if (Number(prodState) === 7) {
-
                         const a = await supplyChainContract.methods.getBasicProductDetails(i, "product", 0).call();
                         const b = await supplyChainContract.methods.getAdditionalProductDetails(i, "product", 0).call();
                         const c = await supplyChainContract.methods.getRetailerDistributionDetails(i, "product", 0).call();
@@ -61,7 +59,7 @@ export default function ReceiveCustomer(props) {
                         const convertBigIntFields = (obj) => {
                             const newObj = { ...obj };
                             for (const key in newObj) {
-                                if (typeof newObj[key] === 'bigint') {
+                                if (typeof newObj[key] === "bigint") {
                                     newObj[key] = Number(newObj[key]);
                                 }
                             }
@@ -82,11 +80,16 @@ export default function ReceiveCustomer(props) {
             setAllReceiveProducts(arr);
             setLoading(false);
         })();
+    }, [count, supplyChainContract.methods]);
 
-    }, [count]);
+    const handleReceiveButton = (prod) => {
+        setModalData(prod);
+        setOpen(true);
+    };
 
-    const handleReceiveButton = async (id) => {
+    const handleConfirmReceive = async () => {
         try {
+            const id = modalData[0][0];
             console.log("Attempting to receive product with ID:", id);
             console.log("Using customer address:", roles.customer);
             await supplyChainContract.methods
@@ -143,14 +146,12 @@ export default function ReceiveCustomer(props) {
                             prod={modalData}
                             open={open}
                             handleClose={handleClose}
-                            handleReceiveButton={handleReceiveButton}
+                            handleReceiveButton={handleConfirmReceive}
                             aText={alertText}
                         />
 
                         <h1 className={classes.pageHeading}>Products to be Received</h1>
-                        <h3 className={classes.tableCount}>
-                            Total : {allReceiveProducts.length}
-                        </h3>
+                        <h3 className={classes.tableCount}>Total: {allReceiveProducts.length}</h3>
 
                         <div>
                             <Paper className={classes.TableRoot}>
@@ -159,10 +160,13 @@ export default function ReceiveCustomer(props) {
                                         <TableHead>
                                             <TableRow>
                                                 <TableCell className={classes.TableHead} align="left">
-                                                    Universal ID
+                                                    ID
                                                 </TableCell>
                                                 <TableCell className={classes.TableHead} align="center">
                                                     Product Code
+                                                </TableCell>
+                                                <TableCell className={classes.TableHead} align="center">
+                                                    Product Name
                                                 </TableCell>
                                                 <TableCell className={classes.TableHead} align="center">
                                                     Manufacturer
@@ -170,110 +174,63 @@ export default function ReceiveCustomer(props) {
                                                 <TableCell className={classes.TableHead} align="center">
                                                     Manufacture Date
                                                 </TableCell>
-                                                <TableCell className={classes.TableHead} align="center">
-                                                    Product Name
-                                                </TableCell>
-                                                <TableCell
-                                                    className={clsx(
-                                                        classes.TableHead,
-                                                        classes.AddressCell
-                                                    )}
-                                                    align="center"
-                                                >
+                                                <TableCell className={clsx(classes.TableHead, classes.AddressCell)} align="center">
                                                     Owner
                                                 </TableCell>
-                                                <TableCell
-                                                    className={clsx(classes.TableHead)}
-                                                    align="center"
-                                                >
-                                                    RECEIVE
+                                                <TableCell className={clsx(classes.TableHead)} align="center">
+                                                    Details
+                                                </TableCell>
+                                                <TableCell className={clsx(classes.TableHead)} align="center">
+                                                    Receive
                                                 </TableCell>
                                             </TableRow>
                                         </TableHead>
                                         <TableBody>
                                             {allReceiveProducts.length !== 0 ? (
                                                 allReceiveProducts
-                                                    .slice(
-                                                        page * rowsPerPage,
-                                                        page * rowsPerPage + rowsPerPage
-                                                    )
+                                                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                                                     .map((prod) => {
-                                                        const d = new Date(Number(prod[1][0]) * 1000).toLocaleString('en-US', {
-                                                            weekday: 'long',
-                                                            year: 'numeric',
-                                                            month: 'short',
-                                                            day: 'numeric',
-                                                            hour: '2-digit',
-                                                            minute: '2-digit',
-                                                            second: '2-digit',
+                                                        const d = new Date(Number(prod[1][0]) * 1000).toLocaleString("en-US", {
+                                                            weekday: "long",
+                                                            year: "numeric",
+                                                            month: "short",
+                                                            day: "numeric",
+                                                            hour: "2-digit",
+                                                            minute: "2-digit",
+                                                            second: "2-digit",
                                                             hour12: false,
-                                                            timeZoneName: 'short'
+                                                            timeZoneName: "short",
                                                         });
 
                                                         return (
-                                                            <>
-                                                                <TableRow
-                                                                    hover
-                                                                    role="checkbox"
-                                                                    tabIndex={-1}
-                                                                    key={prod[0][0]}
-                                                                >
-                                                                    <TableCell
-                                                                        className={classes.TableCell}
-                                                                        component="th"
-                                                                        align="left"
-                                                                        scope="row"
-                                                                        onClick={() => handleClick(prod)}
-                                                                    >
-                                                                        {prod[0][0]}
-                                                                    </TableCell>
-                                                                    <TableCell
-                                                                        className={classes.TableCell}
-                                                                        align="center"
-                                                                        onClick={() => handleClick(prod)}
-                                                                    >
-                                                                        {prod[1][2]}
-                                                                    </TableCell>
-                                                                    <TableCell
-                                                                        className={classes.TableCell}
-                                                                        align="center"
-                                                                        onClick={() => handleClick(prod)}
-                                                                    >
-                                                                        {prod[0][4]}
-                                                                    </TableCell>
-                                                                    <TableCell align="center">{d}</TableCell>
-                                                                    <TableCell
-                                                                        className={classes.TableCell}
-                                                                        align="center"
-                                                                        onClick={() => handleClick(prod)}
-                                                                    >
-                                                                        {prod[1][1]}
-                                                                    </TableCell>
-                                                                    <TableCell
-                                                                        className={clsx(
-                                                                            classes.TableCell,
-                                                                            classes.AddressCell
-                                                                        )}
-                                                                        align="center"
-                                                                        onClick={() => handleClick(prod)}
-                                                                    >
-                                                                        {prod[0][2]}
-                                                                    </TableCell>
-                                                                    <TableCell
-                                                                        className={clsx(classes.TableCell)}
-                                                                        align="center"
-                                                                    >
-                                                                        <Button
-                                                                            type="submit"
-                                                                            variant="contained"
-                                                                            color="primary"
-                                                                            onClick={() => handleClick(prod)}
-                                                                        >
-                                                                            RECEIVE
-                                                                        </Button>
-                                                                    </TableCell>
-                                                                </TableRow>
-                                                            </>
+                                                            <TableRow hover role="checkbox" tabIndex={-1} key={prod[0][0]}>
+                                                                <TableCell className={classes.TableCell} component="th" align="left" scope="row">
+                                                                    {prod[0][0]}
+                                                                </TableCell>
+                                                                <TableCell className={classes.TableCell} align="center">
+                                                                    {prod[1][2]}
+                                                                </TableCell>
+                                                                <TableCell className={classes.TableCell} align="center">
+                                                                    {prod[1][1]}
+                                                                </TableCell>
+                                                                <TableCell className={classes.TableCell} align="center">
+                                                                    {prod[0][4]}
+                                                                </TableCell>
+                                                                <TableCell align="center">{d}</TableCell>
+                                                                <TableCell className={clsx(classes.TableCell, classes.AddressCell)} align="center">
+                                                                    {prod[0][2]}
+                                                                </TableCell>
+                                                                <TableCell className={clsx(classes.TableCell)} align="center">
+                                                                    <Button type="submit" variant="contained" color="primary" onClick={() => handleClick(prod)}>
+                                                                        Details
+                                                                    </Button>
+                                                                </TableCell>
+                                                                <TableCell className={clsx(classes.TableCell)} align="center">
+                                                                    <Button type="submit" variant="contained" color="primary" onClick={() => handleReceiveButton(prod)}>
+                                                                        RECEIVE
+                                                                    </Button>
+                                                                </TableCell>
+                                                            </TableRow>
                                                         );
                                                     })
                                             ) : (
@@ -293,32 +250,6 @@ export default function ReceiveCustomer(props) {
                                 />
                             </Paper>
                         </div>
-
-                        {/* {allReceiveProducts.length !== 0 ? (allReceiveProducts.map((prod) => (
-                    <>
-                        <div>
-                        <p>Universal ID : {prod[0][0]}</p>
-                        <p>SKU : {prod[0][1]}</p>
-                        <p>Owner : {prod[0][2]}</p>
-                        <p>Manufacturer : {prod[0][3]}</p>
-                        <p>Name of Manufacturer : {prod[0][4]}</p>
-                        <p>Details of Manufacturer : {prod[0][5]}</p>
-                        <p>Longitude of Manufature : {prod[0][6]}</p>
-                        <p>Latitude of Manufature : {prod[0][7]}</p>
-    
-                        <p>Manufactured date : {prod[1][0]}</p>
-                        <Button
-                    type="submit"
-                    variant="contained"
-                    color="primary"
-                    onClick={() => handleClick(prod)}
-                >
-                    Recieve
-                </Button>
-                        </div>
-                        
-                    </>
-              ))) : <> </>} */}
                     </>
                 )}
             </Navbar>

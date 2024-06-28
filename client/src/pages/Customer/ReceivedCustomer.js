@@ -12,6 +12,7 @@ import { useStyles } from "../../components/Styles";
 import ProductModal from "../../components/Modal";
 import clsx from "clsx";
 import Loader from "../../components/Loader";
+import Button from "@material-ui/core/Button";
 
 export default function ReceivedByCustomer(props) {
     const classes = useStyles();
@@ -41,7 +42,6 @@ export default function ReceivedByCustomer(props) {
                     .call();
 
                 if (Number(prodState) === 8) {
-
                     const prodData = [];
                     const a = await supplyChainContract.methods
                         .getBasicProductDetails(i, "product", 0)
@@ -116,7 +116,7 @@ export default function ReceivedByCustomer(props) {
                             />
                             <h1 className={classes.pageHeading}>Your Products</h1>
                             <h3 className={classes.tableCount}>
-                                Total : {allReceived.length}
+                                Total: {allReceived.length}
                             </h3>
                             <>
                                 <div>
@@ -141,6 +141,12 @@ export default function ReceivedByCustomer(props) {
                                                             className={classes.TableHead}
                                                             align="center"
                                                         >
+                                                            Product Name
+                                                        </TableCell>
+                                                        <TableCell
+                                                            className={classes.TableHead}
+                                                            align="center"
+                                                        >
                                                             Manufacturer
                                                         </TableCell>
                                                         <TableCell
@@ -150,12 +156,6 @@ export default function ReceivedByCustomer(props) {
                                                             Manufacture Date
                                                         </TableCell>
                                                         <TableCell
-                                                            className={classes.TableHead}
-                                                            align="center"
-                                                        >
-                                                            Product Name
-                                                        </TableCell>
-                                                        <TableCell
                                                             className={clsx(
                                                                 classes.TableHead,
                                                                 classes.AddressCell
@@ -163,6 +163,12 @@ export default function ReceivedByCustomer(props) {
                                                             align="center"
                                                         >
                                                             Owner
+                                                        </TableCell>
+                                                        <TableCell
+                                                            className={clsx(classes.TableHead)}
+                                                            align="center"
+                                                        >
+                                                            Details
                                                         </TableCell>
                                                     </TableRow>
                                                 </TableHead>
@@ -192,7 +198,6 @@ export default function ReceivedByCustomer(props) {
                                                                         role="checkbox"
                                                                         tabIndex={-1}
                                                                         key={Number(prod[0][0])}
-                                                                        onClick={() => handleClick(prod)}
                                                                     >
                                                                         <TableCell
                                                                             className={classes.TableCell}
@@ -212,15 +217,15 @@ export default function ReceivedByCustomer(props) {
                                                                             className={classes.TableCell}
                                                                             align="center"
                                                                         >
-                                                                            {prod[0][4]}
+                                                                            {prod[1][1]}
                                                                         </TableCell>
-                                                                        <TableCell align="center">{d}</TableCell>
                                                                         <TableCell
                                                                             className={classes.TableCell}
                                                                             align="center"
                                                                         >
-                                                                            {prod[1][1]}
+                                                                            {prod[0][4]}
                                                                         </TableCell>
+                                                                        <TableCell align="center">{d}</TableCell>
                                                                         <TableCell
                                                                             className={clsx(
                                                                                 classes.TableCell,
@@ -229,6 +234,19 @@ export default function ReceivedByCustomer(props) {
                                                                             align="left"
                                                                         >
                                                                             {prod[0][2]}
+                                                                        </TableCell>
+                                                                        <TableCell
+                                                                            className={clsx(classes.TableCell)}
+                                                                            align="center"
+                                                                        >
+                                                                            <Button
+                                                                                type="submit"
+                                                                                variant="contained"
+                                                                                color="primary"
+                                                                                onClick={() => handleClick(prod)}
+                                                                            >
+                                                                                Details
+                                                                            </Button>
                                                                         </TableCell>
                                                                     </TableRow>
                                                                 );

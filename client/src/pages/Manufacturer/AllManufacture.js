@@ -12,7 +12,7 @@ import { useStyles } from "../../components/Styles";
 import ProductModal from "../../components/Modal";
 import Loader from "../../components/Loader";
 import clsx from "clsx";
-import Button from "@material-ui/core/Button"; // Import Button
+import Button from "@material-ui/core/Button";
 
 export default function AllManufacture(props) {
     const supplyChainContract = props.supplyChainContract;
@@ -108,7 +108,7 @@ export default function AllManufacture(props) {
     const handleClose = () => setOpen(false);
 
     const handleClick = async (event, prod) => {
-        event.stopPropagation(); // Prevent row click from opening the modal
+        event.stopPropagation();
         await setModalData(prod);
         setOpen(true);
     };
@@ -149,6 +149,12 @@ export default function AllManufacture(props) {
                                                         className={classes.TableHead}
                                                         align="center"
                                                     >
+                                                        Product Name
+                                                    </TableCell>
+                                                    <TableCell
+                                                        className={classes.TableHead}
+                                                        align="center"
+                                                    >
                                                         Manufacturer
                                                     </TableCell>
                                                     <TableCell
@@ -156,12 +162,6 @@ export default function AllManufacture(props) {
                                                         align="center"
                                                     >
                                                         Manufacture Date
-                                                    </TableCell>
-                                                    <TableCell
-                                                        className={classes.TableHead}
-                                                        align="center"
-                                                    >
-                                                        Product Name
                                                     </TableCell>
                                                     <TableCell
                                                         className={clsx(
@@ -224,16 +224,19 @@ export default function AllManufacture(props) {
                                                                         className={classes.TableCell}
                                                                         align="center"
                                                                     >
-                                                                        {prod[0][4]}
+                                                                        {prod[1][1]}
                                                                     </TableCell>
-                                                                    <TableCell
-                                                                        className={classes.TableCell}
-                                                                        align="center">{d}</TableCell>
                                                                     <TableCell
                                                                         className={classes.TableCell}
                                                                         align="center"
                                                                     >
-                                                                        {prod[1][1]}
+                                                                        {prod[0][4]}
+                                                                    </TableCell>
+                                                                    <TableCell
+                                                                        className={classes.TableCell}
+                                                                        align="center"
+                                                                    >
+                                                                        {d}
                                                                     </TableCell>
                                                                     <TableCell
                                                                         className={clsx(
@@ -271,8 +274,8 @@ export default function AllManufacture(props) {
                                         count={allManufacture.length}
                                         rowsPerPage={rowsPerPage}
                                         page={page}
-                                        onChangePage={handleChangePage}
-                                        onChangeRowsPerPage={handleChangeRowsPerPage}
+                                        onPageChange={handleChangePage}
+                                        onRowsPerPageChange={handleChangeRowsPerPage}
                                     />
                                 </Paper>
                             </div>

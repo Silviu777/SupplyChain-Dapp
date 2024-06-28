@@ -100,7 +100,7 @@ function RoleAdmin(props) {
                                 color="primary"
                                 onClick={handleAddManufacturerRole}
                                 className={classes.assignButton}
-                                style={{ width: "25%", marginLeft: "30px", fontSize: "15px" }}
+                                style={{ width: "26%", marginLeft: "27px", fontSize: "15px" }}
                             >
                                 Add Manufacturer
                             </Button>
@@ -129,7 +129,7 @@ function RoleAdmin(props) {
                                 color="primary"
                                 onClick={handleAddRetailerRole}
                                 className={classes.assignButton}
-                                style={{ width: "25%", marginLeft: "30px", fontSize: "15px" }}
+                                style={{ width: "26%", marginLeft: "27px", fontSize: "15px" }}
                             >
                                 Add retailer
                             </Button>
@@ -158,7 +158,7 @@ function RoleAdmin(props) {
                                 color="primary"
                                 onClick={handleAddDistributionHubRole}
                                 className={classes.assignButton}
-                                style={{ width: "25%", marginLeft: "30px", fontSize: "15px" }}
+                                style={{ width: "26%", marginLeft: "27px", fontSize: "15px" }}
                             >
                                 add distribution hub
                             </Button>
@@ -187,7 +187,7 @@ function RoleAdmin(props) {
                                 color="primary"
                                 onClick={handleAddCustomerRole}
                                 className={classes.assignButton}
-                                style={{ width: "25%", marginLeft: "30px", fontSize: "15px" }}
+                                style={{ width: "26%", marginLeft: "27px", fontSize: "15px" }}
                             >
                                 add customer
                             </Button>

@@ -135,7 +135,7 @@ export default function ReceiveDistributionHub(props) {
 
                         <h1 className={classes.pageHeading}>Products To be Received</h1>
                         <h3 className={classes.tableCount}>
-                            Total : {allReceiveProducts.length}
+                            Total: {allReceiveProducts.length}
                         </h3>
 
                         <div>
@@ -151,13 +151,13 @@ export default function ReceiveDistributionHub(props) {
                                                     Product Code
                                                 </TableCell>
                                                 <TableCell className={classes.TableHead} align="center">
+                                                    Product Name
+                                                </TableCell>
+                                                <TableCell className={classes.TableHead} align="center">
                                                     Manufacturer
                                                 </TableCell>
                                                 <TableCell className={classes.TableHead} align="center">
                                                     Manufacture Date
-                                                </TableCell>
-                                                <TableCell className={classes.TableHead} align="center">
-                                                    Product Name
                                                 </TableCell>
                                                 <TableCell
                                                     className={clsx(
@@ -172,7 +172,13 @@ export default function ReceiveDistributionHub(props) {
                                                     className={clsx(classes.TableHead)}
                                                     align="center"
                                                 >
-                                                    RECEIVE
+                                                    Details
+                                                </TableCell>
+                                                <TableCell
+                                                    className={clsx(classes.TableHead)}
+                                                    align="center"
+                                                >
+                                                    Receive
                                                 </TableCell>
                                             </TableRow>
                                         </TableHead>
@@ -202,7 +208,6 @@ export default function ReceiveDistributionHub(props) {
                                                                 role="checkbox"
                                                                 tabIndex={-1}
                                                                 key={Number(prod[0][0])}
-                                                                onClick={() => handleClick(prod)}
                                                             >
                                                                 <TableCell
                                                                     className={classes.TableCell}
@@ -222,15 +227,15 @@ export default function ReceiveDistributionHub(props) {
                                                                     className={classes.TableCell}
                                                                     align="center"
                                                                 >
-                                                                    {prod[0][4]}
+                                                                    {prod[1][1]}
                                                                 </TableCell>
-                                                                <TableCell align="center">{d}</TableCell>
                                                                 <TableCell
                                                                     className={classes.TableCell}
                                                                     align="center"
                                                                 >
-                                                                    {prod[1][1]}
+                                                                    {prod[0][4]}
                                                                 </TableCell>
+                                                                <TableCell align="center">{d}</TableCell>
                                                                 <TableCell
                                                                     className={clsx(
                                                                         classes.TableCell,
@@ -250,7 +255,20 @@ export default function ReceiveDistributionHub(props) {
                                                                         color="primary"
                                                                         onClick={() => handleClick(prod)}
                                                                     >
-                                                                        RECEIVE
+                                                                        Details
+                                                                    </Button>
+                                                                </TableCell>
+                                                                <TableCell
+                                                                    className={clsx(classes.TableCell)}
+                                                                    align="center"
+                                                                >
+                                                                    <Button
+                                                                        type="submit"
+                                                                        variant="contained"
+                                                                        color="primary"
+                                                                        onClick={() => handleClick(prod)}
+                                                                    >
+                                                                        Receive
                                                                     </Button>
                                                                 </TableCell>
                                                             </TableRow>

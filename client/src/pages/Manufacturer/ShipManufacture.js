@@ -37,7 +37,6 @@ export default function ShipManufacture(props) {
                 const cnt = await supplyChainContract.methods.getProductCount().call();
                 setCount(Number(cnt));
                 console.log("count:", cnt);
-
             } catch (error) {
                 console.error("Error fetching product count:", error);
             }
@@ -102,7 +101,7 @@ export default function ShipManufacture(props) {
     const handleClose = () => setOpen(false);
 
     const handleClick = async (event, prod) => {
-        event.stopPropagation(); // Prevent row click from opening the modal
+        event.stopPropagation();
         await setModalData(prod);
         setOpen(true);
     };
@@ -144,7 +143,7 @@ export default function ShipManufacture(props) {
                             handleClose={handleClose}
                         />
                         <h1 className={classes.pageHeading}>Products To be Shipped</h1>
-                        <h3 className={classes.tableCount}>Total : {allSoldProducts.length}</h3>
+                        <h3 className={classes.tableCount}>Total: {allSoldProducts.length}</h3>
                         <div>
                             <p><b style={{ color: "red" }}>{alertText.length !== 0 ? alertText : ""}</b></p>
                             <Paper className={classes.TableRoot}>
@@ -154,9 +153,9 @@ export default function ShipManufacture(props) {
                                             <TableRow>
                                                 <TableCell className={classes.TableHead} align="left">ID</TableCell>
                                                 <TableCell className={classes.TableHead} align="center">Product Code</TableCell>
+                                                <TableCell className={classes.TableHead} align="center">Product Name</TableCell>
                                                 <TableCell className={classes.TableHead} align="center">Manufacturer</TableCell>
                                                 <TableCell className={classes.TableHead} align="center">Manufacture Date</TableCell>
-                                                <TableCell className={classes.TableHead} align="center">Product Name</TableCell>
                                                 <TableCell className={clsx(classes.TableHead, classes.AddressCell)} align="center">Owner</TableCell>
                                                 <TableCell className={clsx(classes.TableHead)} align="center">Details</TableCell>
                                                 <TableCell className={clsx(classes.TableHead)} align="center">Ship</TableCell>
@@ -181,9 +180,9 @@ export default function ShipManufacture(props) {
                                                         <TableRow hover role="checkbox" tabIndex={-1} key={Number(prod[0][0])}>
                                                             <TableCell className={classes.TableCell} component="th" align="left" scope="row">{Number(prod[0][0])}</TableCell>
                                                             <TableCell className={classes.TableCell} align="center">{prod[1][2]}</TableCell>
+                                                            <TableCell className={classes.TableCell} align="center">{prod[1][1]}</TableCell>
                                                             <TableCell className={classes.TableCell} align="center">{prod[0][4]}</TableCell>
                                                             <TableCell align="center">{d}</TableCell>
-                                                            <TableCell className={classes.TableCell} align="center">{prod[1][1]}</TableCell>
                                                             <TableCell className={clsx(classes.TableCell, classes.AddressCell)} align="center">{prod[0][2]}</TableCell>
                                                             <TableCell className={clsx(classes.TableCell)} align="center">
                                                                 <Button

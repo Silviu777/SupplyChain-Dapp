@@ -47068,12 +47068,12 @@
     "5777": {
       "events": {},
       "links": {},
-      "address": "0x1AA53C079DCa3b2009F69765108A986Ae466Acf8",
-      "transactionHash": "0xdcd9279a9f39bc44c71d2f31d66695ee4b907d7481e1c2075abd227b858a73f1"
+      "address": "0x3D37251E9b30549bB888c81580f1306B1F39EA0d",
+      "transactionHash": "0x9c177e1b78960bbcd42e19a2673fc1a50d4132280b003e9ececa8b3faf24cfe7"
     }
   },
   "schemaVersion": "3.4.16",
-  "updatedAt": "2024-06-25T14:53:28.792Z",
+  "updatedAt": "2024-06-28T13:17:12.366Z",
   "networkType": "ethereum",
   "devdoc": {
     "methods": {}

@@ -6,6 +6,12 @@ import { Backdrop } from "@material-ui/core";
 import { Fade } from "@material-ui/core";
 import { useStyles } from "./Styles";
 
+
+const formatPrice = (priceInCents, locale = "en-US") => {
+    const priceInDollars = Number(priceInCents) / 100;
+    return priceInDollars.toLocaleString(locale, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+};
+
 export default function ProductModal({
     prod, open, handleClose, handleReceiveButton, aText
 }) {
@@ -71,7 +77,7 @@ export default function ProductModal({
                                     <div className={classes.dRow}>
                                         <div className={classes.dCol1}>Manufactured date:</div>{" "}
                                         <div className={classes.dCol2}>
-                                            {new Date(parseInt(prod[1][0]) * 1000).toLocaleString('en-US', { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false, timeZoneName: 'short' })}
+                                            {new Date(Number(prod[1][0]) * 1000).toLocaleString('en-US', { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false, timeZoneName: 'short' })}
                                         </div>
                                     </div>
 
@@ -100,7 +106,7 @@ export default function ProductModal({
 
                                     <div className={classes.dRow}>
                                         <div className={classes.dCol1}>Product Price: </div>{" "}
-                                        <div className={classes.dCol2}>{prod[1][3].toString()}</div>
+                                        <div className={classes.dCol2}>{formatPrice(prod[1][3])}</div>
                                     </div>
 
                                     <div className={classes.dRow}>
@@ -120,7 +126,7 @@ export default function ProductModal({
                                         <div className={classes.dCol2}>{prod[1][7]}</div>
                                     </div>
                                     <div className={classes.dRow}>
-                                        <div className={classes.dCol1}>Retailer Latitude: </div>{" "}
+                                        <div className={classes.dCol1}>Retailer Latitude:</div>{" "}
                                         <div className={classes.dCol2}>{prod[2][0]}</div>
                                     </div>
 
@@ -141,7 +147,7 @@ export default function ProductModal({
                                         <div className={classes.dCol2}>{prod[2][4]}</div>
                                     </div>
                                     <div className={classes.dRow}>
-                                        <div className={classes.dCol1}>Tx Hash: </div>{" "}
+                                        <div className={classes.dCol1}>Transaction Hash: </div>{" "}
                                         <div className={classes.dCol2}>
                                             {prod[2][5].length > 41
                                                 ? prod[2][5].substring(0, 41) + "..."
