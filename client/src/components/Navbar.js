@@ -144,7 +144,7 @@ export default function PersistentDrawerLeft({ pageTitle, navItems, children }) 
                     </IconButton>
                 </div>
                 <List>
-                    <Link to="/" style={{ textDecoration: "none", color: "#D3D3D3" }}>
+                    <Link to="/home" style={{ textDecoration: "none", color: "#D3D3D3" }}>
                         <ListItem>
                             <ListItemText primary={<Typography style={{ fontSize: '23px', fontWeight: 'bold' }}>Home</Typography>}></ListItemText>
                         </ListItem>

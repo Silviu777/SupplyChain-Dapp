@@ -1,3 +1,4 @@
+// src/App.js
 import React, { Component } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { ThemeProvider } from "@material-ui/core/styles";
@@ -11,6 +12,7 @@ import { SupplyChainRoleProvider } from "./context/RoleData";
 import SupplyChainContract from "./contracts/SupplyChain.json";
 import Home from "./pages/Home";
 import Explorer from "./pages/Explorer";
+import LandingPage from "./pages/LandingPage"; // Import the LandingPage component
 
 import RoleAdmin from "./pages/RoleAdmin";
 import Manufacture from "./pages/Manufacturer/Manufacture";
@@ -67,17 +69,18 @@ class App extends Component {
           <SupplyChainRoleProvider mRole={this.state.mRole} rRole={this.state.rRole} hRole={this.state.hRole} cRole={this.state.cRole}>
             <Router history={createBrowserHistory()}>
               <Switch>
-
+                <Route exact path="/">
+                  <LandingPage /> {/* Add the LandingPage route */}
+                </Route>
+                <Route path="/home">
+                  <Home accounts={this.state.accounts} supplyChainContract={this.state.contract} />
+                </Route>
                 <Route exact path="/roleAdmin">
                   <RoleAdmin accounts={this.state.accounts} supplyChainContract={this.state.contract} />
                 </Route>
                 <Route exact path="/explorer">
                   <Explorer accounts={this.state.accounts} supplyChainContract={this.state.contract} web3={this.state.web3} />
                 </Route>
-                <Route exact path="/">
-                  <Home accounts={this.state.accounts} supplyChainContract={this.state.contract} />
-                </Route>
-
 
                 <Route exact path="/manufacturer/manufacture">
                   {this.state.mRole !== "" ?
