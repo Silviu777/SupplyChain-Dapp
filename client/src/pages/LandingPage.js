@@ -4,6 +4,11 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './LandingPage.css';
 import icon1 from './img2.png';
+import globalImage from './images/global.jpg';
+import efficiency from './images/efficiency.png';
+import transactions from './images/transactions2.png';
+import innovation from './images/innovation1.png';
+import cost from './images/cost2.png';
 
 const LandingPage = () => {
     const servicesRef = useRef(null);
@@ -16,13 +21,13 @@ const LandingPage = () => {
         if (window.ethereum) {
             try {
                 await window.ethereum.request({ method: 'eth_requestAccounts' });
-                toast.success('Wallet connected successfully!');
+                toast.success('Blockchain wallet connected successfully!');
             } catch (error) {
                 console.error('User rejected the connection request');
                 toast.error('User rejected the connection request.');
             }
         } else {
-            toast.error('MetaMask is not installed. Please install it to use this feature.');
+            toast.error('MetaMask is not installed. Please install it to connect your crypto wallet.');
         }
     };
 
@@ -37,7 +42,7 @@ const LandingPage = () => {
                 <div className="nav-links">
                     <Link to="/home">Home</Link>
                     <a href="#services" onClick={scrollToServices}>Services</a>
-                    <a href="https://forms.gle/YOUR_GOOGLE_FORM_ID" target="_blank" rel="noopener noreferrer">Contact</a>
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLSepxQTmOX_FHKTyqHso6o_Ske-G3hmI_t69sD-9k2s5HZsQWw/viewform" target="_blank" rel="noopener noreferrer">Contact</a>
                     <a href="#" className="connect-wallet" onClick={connectWallet}>Connect Wallet</a>
                 </div>
             </nav>
@@ -56,37 +61,33 @@ const LandingPage = () => {
                 <h2>Our Services</h2>
                 <div className="services-grid">
                     <div className="service-box">
-                        <img src="/icons/icon1.png" alt="Bitcoin Transaction" />
-                        <h3>Bitcoin Transaction</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt</p>
+                        <img src={globalImage} alt="Global" />
+                        <h3>Global Accessibility</h3>
+                        <p>Efficient and transparent partner connectivity beyond geographical boundaries</p>
                     </div>
                     <div className="service-box">
-                        <img src="/icons/icon2.png" alt="Instant Exchange" />
-                        <h3>Instant Exchange</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt</p>
+                        <img src={efficiency} alt="Efficiency" />
+                        <h3>Efficiency Growth</h3>
+                        <p>Improved operations for maximum performance</p>
                     </div>
                     <div className="service-box">
-                        <img src="/icons/icon3.png" alt="Investment Banking" />
-                        <h3>Investment Banking</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt</p>
+                        <img src={transactions} alt="Transactions" />
+                        <h3>Much Safer Transactions</h3>
+                        <p>Blockchain technology ensures transparency and reliability of operations</p>
                     </div>
                     <div className="service-box">
-                        <img src="/icons/icon4.png" alt="Safe Browsing" />
-                        <h3>Safe Browsing</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt</p>
+                        <img src={innovation} alt="Innovation" />
+                        <h3>Innovation</h3>
+                        <p>Leveraging the potential of cutting-edge technology</p>
                     </div>
                     <div className="service-box">
-                        <img src="/icons/icon5.png" alt="Easy Wallet" />
-                        <h3>Easy Wallet</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt</p>
-                    </div>
-                    <div className="service-box">
-                        <img src="/icons/icon6.png" alt="Reliable & Low Cost" />
-                        <h3>Reliable & Low Cost</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt</p>
+                        <img src={cost} alt="Cost" />
+                        <h3>Cost Optimization</h3>
+                        <p>Reducing operational costs by enabling savings and generating higher profits</p>
                     </div>
                 </div>
             </div>
+
         </div>
     );
 };
