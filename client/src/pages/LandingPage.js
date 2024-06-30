@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -9,9 +9,12 @@ import efficiency from './images/efficiency.png';
 import transactions from './images/transactions2.png';
 import innovation from './images/innovation1.png';
 import cost from './images/cost2.png';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowUp } from '@fortawesome/free-solid-svg-icons';
 
 const LandingPage = () => {
     const servicesRef = useRef(null);
+    const [showScrollToTop, setShowScrollToTop] = useState(false);
 
     const scrollToServices = () => {
         servicesRef.current.scrollIntoView({ behavior: 'smooth' });
@@ -29,6 +32,25 @@ const LandingPage = () => {
         } else {
             toast.error('MetaMask is not installed. Please install it to connect your crypto wallet.');
         }
+    };
+
+    const handleScroll = () => {
+        if (window.pageYOffset > 400) {
+            setShowScrollToTop(true);
+        } else {
+            setShowScrollToTop(false);
+        }
+    };
+
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll);
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
+
+    const scrollToTop = () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
     return (
@@ -88,6 +110,20 @@ const LandingPage = () => {
                 </div>
             </div>
 
+            <div className="contact-us" id="contact">
+                <h2 className="contact-heading">Get In Touch With Us</h2>
+                <p>Share Your Thoughts and Be Part of the New Frontier in Business</p>
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSepxQTmOX_FHKTyqHso6o_Ske-G3hmI_t69sD-9k2s5HZsQWw/viewform" target="_blank" rel="noopener noreferrer" className="contact-button">Contact Form</a>
+                <div className="footer">
+                    2024 &copy; ChainSync. All rights reserved.
+                </div>
+            </div>
+
+            {showScrollToTop && (
+                <button className="scroll-to-top" onClick={scrollToTop}>
+                    <FontAwesomeIcon icon={faArrowUp} />
+                </button>
+            )}
         </div>
     );
 };
