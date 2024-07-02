@@ -1,17 +1,7 @@
 import { makeStyles } from "@material-ui/core/styles";
 
 export const useStyles = makeStyles({
-    // pageWrap: {
-    //     background: "linear-gradient(135deg, rgb(10, 25, 47) 0%, rgb(70, 90, 105) 100%)", // Dark Blue to Light Slate Grey Gradient
-    //     textAlign: "center",
-    //     color: "#FFFFFF", // White text for readability
-    //     position: "relative",
-    //     overflow: "hidden",
-    //     boxShadow: "inset 0 0 30px 10px rgba(0, 0, 0, 0.5), 0 0 20px rgba(0, 0, 0, 0.8)", // Enhanced shadow effect
-    //     padding: "20px", // Add some padding for the content
-    //     borderRadius: "10px", // Optional: Add rounded corners
-    //     margin: "20px", // Optional: Add margin to separate from other elements
-    // },
+
     pageWrap: {
         background: "linear-gradient(54deg, rgba(3,15,30,1) 55%, rgba(6,22,40,1) 60%, rgba(10,30,47,1) 64%, rgba(20,41,70,1) 72%, rgba(36,56,86,1) 79%, rgba(53,73,100,1) 84%, rgba(70,89,115,1) 88%, rgba(95,112,135,1) 93%, rgba(120,136,155,1) 96%, rgba(150,165,190,1) 98%, rgba(200,200,210,1) 99%)",
         height: "100vh",

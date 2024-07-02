@@ -1,4 +1,3 @@
-// src/App.js
 import React, { Component } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { ThemeProvider } from "@material-ui/core/styles";
@@ -12,7 +11,7 @@ import { SupplyChainRoleProvider } from "./context/RoleData";
 import SupplyChainContract from "./contracts/SupplyChain.json";
 import Home from "./pages/Home";
 import Explorer from "./pages/Explorer";
-import LandingPage from "./pages/LandingPage"; // Import the LandingPage component
+import LandingPage from "./pages/LandingPage";
 
 import RoleAdmin from "./pages/RoleAdmin";
 import Manufacture from "./pages/Manufacturer/Manufacture";
@@ -70,7 +69,7 @@ class App extends Component {
             <Router history={createBrowserHistory()}>
               <Switch>
                 <Route exact path="/">
-                  <LandingPage /> {/* Add the LandingPage route */}
+                  <LandingPage />
                 </Route>
                 <Route path="/home">
                   <Home accounts={this.state.accounts} supplyChainContract={this.state.contract} />

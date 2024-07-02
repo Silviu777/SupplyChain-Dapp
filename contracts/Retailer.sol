@@ -12,7 +12,7 @@ contract Retailer {
     Roles.Role private retailersList;
 
     constructor() public {
-        retailersList.addRole(msg.sender); // add the current retailer
+        retailersList.addRole(msg.sender); // adds the current retailer
         emit RetailerAdded(msg.sender);
     }
 

@@ -69,6 +69,7 @@ export default function Explorer(props) {
             temp.push(a);
             temp.push(b);
             temp.push(c);
+
             setProductData(temp);
             arr = [];
             var l = await supplyChainContract.methods.getProductHistoryLength(parseInt(search)).call();

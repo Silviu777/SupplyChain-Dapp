@@ -71,7 +71,7 @@ const LandingPage = () => {
             <div className="hero">
                 <div className="hero-content">
                     <h1>Decentralised Supply Chain Platform</h1>
-                    <h3>Empowering Supply Chain Operations Through Decentralized Connectivity</h3>
+                    <h3>Empowering Supply Chain Operations Through Decentralised Connectivity</h3>
                     <Link to="/home" className="get-started">Get Started</Link>
                 </div>
                 <div className="hero-image">

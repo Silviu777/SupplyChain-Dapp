@@ -37,7 +37,7 @@ export class MapContainer extends Component {
             map.fitBounds(bounds);
 
             const listener = this.props.google.maps.event.addListener(map, 'idle', () => {
-                map.setZoom(map.getZoom());  // -1 for zoom out or not?
+                map.setZoom(map.getZoom());
                 this.props.google.maps.event.removeListener(listener);
             });
         }

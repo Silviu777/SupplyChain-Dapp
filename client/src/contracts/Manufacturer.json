@@ -2408,12 +2408,12 @@
         }
       },
       "links": {},
-      "address": "0xDc50bb78Bf15D290A89c6Be2E1283594d4Af74CA",
-      "transactionHash": "0xec8d9ea23c4ce3f99607d5244e8c3bdfbacb180b3686407f350d0b404d46fb28"
+      "address": "0x30050eA95518c99777101311E971c7669447c4fc",
+      "transactionHash": "0xefdaab96e11ab0123dcd89f273686ba3393a4059a51a9b812a66017f4d2a6fa9"
     }
   },
   "schemaVersion": "3.4.16",
-  "updatedAt": "2024-06-28T13:17:12.402Z",
+  "updatedAt": "2024-07-02T19:05:34.525Z",
   "networkType": "ethereum",
   "devdoc": {
     "methods": {}

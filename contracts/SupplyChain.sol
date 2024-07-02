@@ -317,7 +317,7 @@ contract SupplyChain {
         emit ShippedByRetailer(_uid);
     }
 
-    // Step 7: Distribution Hub received product from Retailer and will deliver it to Customer
+    // Step 7: Distribution Hub receives product from Retailer and will deliver it to Customer
     function receiveByDistributionHub(
         uint256 _uid,
         string memory hubLongitude,
