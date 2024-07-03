@@ -16,6 +16,11 @@ import Button from "@material-ui/core/Button";
 import TableRow from "@material-ui/core/TableRow";
 import { Grid, Container } from "@material-ui/core";
 
+const formatPrice = (priceInCents, locale = "en-US") => {
+    const priceInDollars = Number(priceInCents) / 100;
+    return priceInDollars.toLocaleString(locale, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+};
+
 const columns = [
     { id: "id", label: "ID", minWidth: 170 },
     { id: "mname", label: "Manufacturer", minWidth: 170 },
@@ -276,7 +281,7 @@ export default function Explorer(props) {
                                                                     align="center"
                                                                     onClick={() => handleClick(row)}
                                                                 >
-                                                                    {row[1][3].toString()}
+                                                                    {formatPrice(row[1][3])}
                                                                 </TableCell>
                                                                 <TableCell
                                                                     className={classes.TableCell}
